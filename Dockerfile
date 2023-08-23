@@ -15,4 +15,6 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli
 
+RUN a2enmod rewrite
+
 LABEL description="PHP + Apache + PDO"
