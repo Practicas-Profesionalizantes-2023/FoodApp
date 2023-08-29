@@ -7,18 +7,20 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="<?php echo constant('URL'); ?> /login/authenticate  " method="post">
+    <form action="<?php echo constant('URL'); ?>/login/authenticate" method="post">
     <div><?php (isset($this->errorMessage))?  $this->errorMessage : ''?></div>
     <h1>Inicio de sesión</h1>
 
     <label for="username">Username</label>
-    <input type="text" id="username">
+    <input type="text" name="username" id="username">
 
     <label for="password">Password</label>
-    <input type="password" id="password">
+    <input type="password" name="password" id="password">
 
     <input type= "submit" class="btn-1" value="Iniciar">
-
+    <p><?php 
+        $this->showMessages();
+    ?></p>
     </form>
 
 </body>

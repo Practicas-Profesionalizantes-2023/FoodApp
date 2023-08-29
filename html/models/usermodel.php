@@ -19,7 +19,7 @@ class UserModel extends Model implements IModel{
     }
     public function save(){
         try{
-            $query-> $this->prepare('INSERT users(username, password, role, state) VALUES (:username, :password, :role, :state)');
+            $query-> $this->prepare('INSERT users(username, password, id_rol, state) VALUES (:username, :password, :role, :state)');
             $query->execute([
                 'username' => $this->username,
                 'password' => $this->password,
@@ -111,8 +111,8 @@ class UserModel extends Model implements IModel{
         $this->id = $array['id_user'];
         $this->username = $array['username'];
         $this->password = $array['password'];
-        $this->role     = $array['role'];
-        $this->name     = $array['name'];
+        $this->role     = $array['id_rol'];
+        // $this->name     = $array['name'];
     }
 
     //verifica si existe usernamame en la base de datos
@@ -145,7 +145,7 @@ class UserModel extends Model implements IModel{
     }
 
     private function getHashedPassword($password){
-        return password_hash($password, PASSWORD_DEFAULT, ['cost' => 10]);
+        return password_hash($password);
     }
     public function setId($id){             $this->id = $id;  }
     public function setUsername($username){ $this->username = $username; }

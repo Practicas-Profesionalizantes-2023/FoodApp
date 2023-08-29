@@ -14,11 +14,12 @@ class Login extends SessionController {
 
 
     function authenticate() { // nuevo
-        if($this -> existPOST(['username', 'password'])){
+        if($this->existPOST(['username', 'password'])){
             $username = $this->getPOST('username');
             $password = $this->getPOST('password');
             if($username == '' || empty($username) || $password == '' || empty($password)){
-                $this->redirect('', ['error' -> ErrorMessages::ERROR_LOGIN_AUTHENTICATE_EMPTY]);
+                $this->redirect('', ['error' => ErrorMessages::ERROR_LOGIN_AUTHENTICATE_EMPTY]);
+                return;
             }
 
             $user = $this->model->login($username, $password);
@@ -26,10 +27,11 @@ class Login extends SessionController {
             if($user != NULL){
                 $this->initialize($user);
             }else{
-                $this->redirect('', ['error' -> ErrorMessages::ERROR_LOGIN_AUTHENTICATE_DATA]);
+                $this->redirect('', ['error' => ErrorMessages::ERROR_LOGIN_AUTHENTICATE_DATA]);
+                return;
             }
         }else{
-            $this->redirect('', ['error' -> ErrorMessages::ERROR_LOGIN_AUTHENTICATE]);
+            $this->redirect('', ['error' => ErrorMessages::ERROR_LOGIN_AUTHENTICATE]);
         }
         
     }

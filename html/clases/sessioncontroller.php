@@ -60,7 +60,8 @@ class SessionController extends Controller{
             if($this->isPublic()){
                 // no pasa nada, lo dejo pasar
             }else{
-                header('Location: '.constant('URL'));
+                error_log('SessionController::validateSession() redirect al login');
+                header('location: '. constant('URL'). '');
             }
 
         }
@@ -83,29 +84,28 @@ class SessionController extends Controller{
         $this->user = new UserModel();
         $this->user->get($id);
 
-        //error_log('SESSIONCONTROLLER::getUserSession -> '. $this->getUsername());
+        error_log('SESSIONCONTROLLER::getUserSession -> '. $this->getUsername());
 
         return $this->user;
     }
 
-    function isPublic(){
+    private function isPublic(){
         $currentURL = $this->getCurrentPage();
-        $currentURL = preg_replace("/\?.*/", "", $currentURL);
-
-        for($i = 0; $i < sizeof($this->sites); $i++) {
-            if($currentURL == $this->sites[$i]['site'] && $this->sites[$i]['access'] == 'public'){
+        error_log("sessionController::isPublic(): currentURL => " . $currentURL);
+        $currentURL = preg_replace( "/\?.*/", "", $currentURL); //omitir get info
+        for($i = 0; $i < sizeof($this->sites); $i++){
+            if($currentURL === $this->sites[$i]['site'] && $this->sites[$i]['access'] === 'public'){
                 return true;
             }
         }
-
         return false;
     }
 
     function getCurrentPage(){
-        $actualLink = trim("$_SERVER[REQUEST_URI]");
-        $url = explode("/", $actualLink);
-        error_log('SESSIONCONTROLLER::getCurrentPage -> '.$url[2]);
-        return $url[2];
+        $actual_link = trim("$_SERVER[REQUEST_URI]");
+        $url = explode('/', $actual_link);
+        error_log("sessionController::getCurrentPage(): actualLink =>" . $actual_link . ", url => " . $url[1]);
+        return $url[1];
     }
 
     private function redirectDefaultSiteByRole($role){
@@ -140,7 +140,7 @@ class SessionController extends Controller{
 
     function authorizeAccess($role){
         switch ($role){
-            case 'user':
+            case '1':
                     $this->redirect($this->defaultSites['user'],[]);
                 break;
             case 'admin':

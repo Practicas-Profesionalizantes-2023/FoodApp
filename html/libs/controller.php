@@ -17,13 +17,13 @@ class Controller{
     }
 
     function existPOST($params){
-        foreach($params as $param){
+        foreach ($params as $param) {
             if(!isset($_POST[$param])){
-                error_log('CONTROLLER::existPOST => no exite el parametro ' . $param);
+                error_log("ExistPOST: No existe el parametro $param" );
                 return false;
             }
         }
-
+        error_log( "ExistPOST: Existen parámetros" );
         return true;
     }
 
@@ -45,20 +45,35 @@ class Controller{
         return $_POST[$name];
     }
 
-    function redirect($route, $mensaje){
+    // function redirect($route, $mensaje){
+    //     $data = [];
+    //     $params = '';
+
+    //     foreach($mensaje as $key => $mensaje) {
+    //         array_push($data, $key.'='.$mensaje); 
+    //     }
+    //     $params = join('&', $params);
+
+    //     // ?nombre=Marcos&apellido=Rivas
+    //     if($params !== ''){
+    //         $params = '?' . $params;
+    //     }
+    //     header('Location: '. constant('URL') .$route . $params);
+    // }
+
+    function redirect($url, $mensajes = []){
         $data = [];
         $params = '';
-
-        foreach($mensaje as $key => $mensaje) {
-            array_push($data, $key.'='.$mensaje); 
+        
+        foreach ($mensajes as $key => $value) {
+            array_push($data, $key . '=' . $value);
         }
-        $params = join('&', $params);
-
-        // ?nombre=Marcos&apellido=Rivas
-        if($params !== ''){
+        $params = join('&', $data);
+        
+        if($params != ''){
             $params = '?' . $params;
         }
-        header('Location: '. constant('URL') .$route . $params);
+        header('location: ' . constant('URL') . $url . $params);
     }
 }
 
