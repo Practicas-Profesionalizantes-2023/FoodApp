@@ -2,17 +2,17 @@
 
 class UserModel extends Model implements IModel{
 
-    private $id_user;
+    private $id;
     private $username;
     private $password;
     private $role;
-    private $tate;
+    private $state;
 
     public function __construct() {
        parent::__construct();
        $this->username = '';
        $this->password = '';
-       $this->role = '';
+       $this->role = 0;
        $this->name = '';
        $this->state = 0;
 
@@ -23,8 +23,8 @@ class UserModel extends Model implements IModel{
             $query->execute([
                 'username' => $this->username,
                 'password' => $this->password,
-                'role' => $this->role,
-                'name' => $this->name
+                'id_rol' => $this->role,
+                'state' => $this->state
             ]);
             return true;
 
@@ -42,8 +42,8 @@ class UserModel extends Model implements IModel{
                 $item->setId($p['id_user']);
                 $item->setUsername($p['username']);
                 $item->setPassword($p['password']);
-                $item->setRole($p['role']);	
-                $item->setName($p['name']);
+                $item->setRole($p['id_rol']);	
+                $item->setName($p['state']);
 
                 array_push($items ,$item);
             }
@@ -57,7 +57,7 @@ class UserModel extends Model implements IModel{
 
     public function get($id){
         try{
-            $query = $this->prepare('SELECT * FROM users WHERE id = :id');
+            $query = $this->prepare('SELECT * FROM users WHERE id_user = :id');
             $query->execute([
                 'id' => $id,
             ]);
@@ -69,9 +69,9 @@ class UserModel extends Model implements IModel{
 
             $this->setUsername($user['username']);
             $this->setPassword($user['password']);
-            $this->setRole($user['role']);	
-            $this->setName($user['name']);
-            $this->setId($user['id']);
+            $this->setRole($user['id_rol']);	
+            $this->setRole($user['state']);
+            $this->setId($user['id_user']);
             
             return $this;
         }catch(PDOException $e){
@@ -80,7 +80,7 @@ class UserModel extends Model implements IModel{
     }
     public function delete($id){
         try{
-            $query = $this->prepare('DELETE * FROM users WHERE id = :id');
+            $query = $this->prepare('DELETE * FROM users WHERE id_user = :id');
             $query->execute([
                 'id' => $id,
             ]);
@@ -92,12 +92,13 @@ class UserModel extends Model implements IModel{
     }
     public function update(){
         try{
-            $query = $this->prepare('UPDATE users SET username = :username, password = :password, budget = :budget, photo = :photo, name = :name WHERE id_user = :id');
+            $query = $this->prepare('UPDATE users SET username = :username, password = :password, id_rol = :role, state = :state WHERE id_user = :id');
             $query->execute([
                 'id_user' => $this->$id,
                 'username' => $this->$username,
+                'id_rol' => $this->$role,
                 'password' => $this->$password,
-                'name' => $this->$name,
+                'state' => $this->$state,
             ]);
 
             return true;
@@ -112,7 +113,7 @@ class UserModel extends Model implements IModel{
         $this->username = $array['username'];
         $this->password = $array['password'];
         $this->role     = $array['id_rol'];
-        // $this->name     = $array['name'];
+        $this->state     = $array['state'];
     }
 
     //verifica si existe usernamame en la base de datos
@@ -153,12 +154,12 @@ class UserModel extends Model implements IModel{
         $this->password = $this->getHashedPassword($password);
      }
     public function setRole($role){         $this->role = $role; }
-    public function setName($name){         $this->name = $name; }
+    public function setState($state){         $this->state = $state; }
 
     public function getId(){                return $this->id;}
     public function getUsername(){          return $this->username;}
     public function getPassword(){          return $this->password;}
-    public function getName(){              return $this->name;}
+    public function getState(){              return $this->state;}
     public function getRole(){              return $this->role;}
 
 }
