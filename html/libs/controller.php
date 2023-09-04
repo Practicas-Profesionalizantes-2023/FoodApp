@@ -45,34 +45,22 @@ class Controller{
         return $_POST[$name];
     }
 
-    // function redirect($route, $mensaje){
-    //     $data = [];
-    //     $params = '';
-
-    //     foreach($mensaje as $key => $mensaje) {
-    //         array_push($data, $key.'='.$mensaje); 
-    //     }
-    //     $params = join('&', $params);
-
-    //     // ?nombre=Marcos&apellido=Rivas
-    //     if($params !== ''){
-    //         $params = '?' . $params;
-    //     }
-    //     header('Location: '. constant('URL') .$route . $params);
-    // }
-
     function redirect($url, $mensajes = []){
+        error_log('Controller::redirect-> entra a redirect y la url es => ' . $url);
+        // error_log('Controller::redirect-> entra a redirect y la mensajes es => ' . $mensajes);
+
         $data = [];
         $params = '';
-        
+
         foreach ($mensajes as $key => $value) {
             array_push($data, $key . '=' . $value);
         }
         $params = join('&', $data);
-        
+
         if($params != ''){
             $params = '?' . $params;
         }
+        error_log('Controller::redirect-> params => ' . $params);
         header('location: ' . constant('URL') . $url . $params);
     }
 }

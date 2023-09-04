@@ -11,11 +11,13 @@ class Session{
     }
 
     public function setCurrentUser($user) {
+        error_log('SESSION::setCurrentUser -> variable user = '. $user);
+        var_dump($user);
         $_SESSION[$this->sessionName]= $user;
     }
 
     public function getCurrentUser() {
-        return isset($_SESSION[$this->sessionName]) ? $_SESSION[$this->sessionName] : null;
+        return isset($_SESSION[$this->sessionName]);
     }
 
     public function CloseSession() {

@@ -7,7 +7,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="<?php echo constant('URL'); ?>/login/authenticate" method="post">
+    <form action="<?php echo constant('URL'); ?>login/authenticate" method="post">
     <div><?php (isset($this->errorMessage))?  $this->errorMessage : ''?></div>
     <h1>Inicio de sesión</h1>
 

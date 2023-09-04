@@ -24,7 +24,7 @@ class App{
 
         if(file_exists($archivoController)){
             require_once $archivoController;
-
+        error_log('APP::construct-> file existe y es ='.$archivoController);
             $controller = new $url[0];
             $controller->loadModel($url[0]);
 
@@ -32,7 +32,7 @@ class App{
                 if(method_exists($controller, $url[1])){
                     if(isset($url[2])){
                         // no de parametros
-                        $nparam = count($url) - 2;
+                        $nparam = sizeof($url) - 2;
                         //arreglos de parametros
 
                         $params = [];
@@ -41,7 +41,7 @@ class App{
                             array_push($params, $url[$i]+2);
                         }
                         $controller->{$url[1]}($params);
-
+                        $controller->render();
                     }else{
                         //no tiene parametro se manda a llamar 
                         //el metodo tal cual
