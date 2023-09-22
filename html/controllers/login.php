@@ -28,6 +28,12 @@ class Login extends SessionController {
             $user = $this->model->login($username, $password);
 
             if($user != NULL){
+                if($user == -1){
+                    error_log('Login::authenticate-> NO ESTA ACTIVO EL USUARIO');
+                    $this->redirect('', ['error' => ErrorMessages::ERROR_LOGIN_AUTHENTICATE_STATE]);
+                    return;
+
+                }
                 error_log('Login::authenticate-> manda a la funcion inicialice');
                 $this->initialize($user);
                 
