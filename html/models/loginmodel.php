@@ -10,7 +10,10 @@ class LoginModel extends Model{
     function login($username, $password){//nuevo
         error_log('LoginModel::login->entre a login');
         try {
-            $query = $this->prepare('SELECT * FROM users WHERE username = :username');
+            $query = $this->prepare('SELECT employees.*, rols.rol_name
+                                        FROM employees
+                                        JOIN rols ON employees.id_rol = rols.id_rol
+                                        WHERE employees.username = :username;');
             $query->execute(['username' => $username]);
             
             if($query->rowCount() == 1){
@@ -20,8 +23,13 @@ class LoginModel extends Model{
                 $user->from($item);
 
                 if(password_verify($password, $user->getPassword())){
+
+                    if($user->getState() != 0) {
+                        error_log('LoginModel::login-> contraseña correcta');
+                        return $user;
+                    }
                     error_log('LoginModel::login-> contraseña correcta');
-                    return $user;
+                        return -1;
                 }else{
                     
                     error_log('LoginModel::login->PASSWORD NO ES IGUAL');
