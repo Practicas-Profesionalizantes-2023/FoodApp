@@ -84,10 +84,10 @@ class SessionController extends Controller{
         
         if(!$this->session->exists()) return false;     
         error_log('SESSIONCONTROLLER::existsSession -> exists');
-        error_log('SESSIONCONTROLLER::existsSession -> verificando si existe session ' .$this->session->getCurrentUser());
-        if($this->session->getCurrentUser() == NULL) return false;
+        error_log('SESSIONCONTROLLER::existsSession -> verificando si existe session ' .$this->session->getCurrentUserName());
+        if($this->session->getCurrentUserId() == NULL) return false;
 
-        $userid = $this->session->getCurrentUser();
+        $userid = $this->session->getCurrentUserId();
         error_log('SESSIONCONTROLLER::existsSession -> verificando si existe session '. $userid);
         if($userid) return true;
 
@@ -95,7 +95,7 @@ class SessionController extends Controller{
     }
 
     public function getUserSessionData(){
-        $id = $this->session->getCurrentUser();
+        $id = $this->session->getCurrentUserId();
         require_once '/var/www/html/models/usermodel.php';
         $this->user = new UserModel();
         $this->user->get($id);
@@ -151,7 +151,12 @@ class SessionController extends Controller{
 
     function initialize($user){
         error_log('SessionController::initialize-> manda al getCurrentUser');
-        $this->session->setCurrentUser($user->getId());
+        $this->session->setCurrentUserId($user->getId());
+        $this->session->setCurrentUserName($user->getUsername());
+        $this->session->setCurrentUserN($user->getName());
+        $this->session->setCurrentUserRole($user->getRole());
+        $this->session->setCurrentUserRoleName($user->getRoleName());
+        $this->session->setCurrentUserState($user->getState());
         error_log('SessionController::initialize-> manda a la funcion authorizeAccess');
 
         $this->authorizeAccess($user->getRole());
