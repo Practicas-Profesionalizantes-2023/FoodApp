@@ -5,7 +5,7 @@
         public function getAll();
         public function get($id);
         public function delete($id);
-        public function update();
+        public function update($id, $username, $name, $surname, $dni, $province, $role, $state);
         public function from($array);
     }
 
