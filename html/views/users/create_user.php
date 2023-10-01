@@ -39,7 +39,7 @@ $rols = $userModel->getAllRole();
             </div>
             <div class="mb-3">
                 <label for="dni" class="form-label">DNI:</label>
-                <input type="text" class="form-control" name="dni" required>
+                <input type="text" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="dni" required>
             </div>
             <div class="mb-3">
                 <label for="gender" class="form-label">Genero:</label>
