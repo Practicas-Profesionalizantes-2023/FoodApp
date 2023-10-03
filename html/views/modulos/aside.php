@@ -58,12 +58,12 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  <?php
                  
                                      
-                 if ($_SESSION["user_role"]==1) { ?>
-                 <li class="nav-item">
+                 if ($_SESSION["user_role"]==1) { ?> 
+                 <!-- <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
                          <p>
-                             Productos
+                         Productos
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
@@ -87,7 +87,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              </a>
                          </li>
                      </ul>
-                 </li>
+                 </li> -->
                  <?php }  if ($_SESSION["user_role"]==2 or $_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
@@ -121,7 +121,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  <?php }  if ($_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-store-alt"></i>
+                     <i class="nav-icon fas fa-users"></i>
                          <p>Empleados<i class="right fas fa-angle-left"></i></p>
                      </a>
                      <ul class="nav nav-treeview">
@@ -135,6 +135,27 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/users/create_user.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Agregar Empleados</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-hamburger"></i>
+                         <p>Productos<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/products/crud_products.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Productos</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/products/create_products.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Productos</p>
                              </a>
                          </li>
                      </ul>
