@@ -72,7 +72,7 @@ class Crud_users extends SessionController {
 }
     public function createUser(){
         if($this->existPOST(['username', 'name', 'surname','dni', 'gender', 'province', 'localidad', 'street',
-        'bwStreet','bwStreetTwo', 'altura', 'cel', 'email', 'rol','state','deleted','password'])){
+        'bwStreet','bwStreetTwo', 'altura', 'cel', 'email', 'rol','password'])){
             $username = $_POST["username"];
             $name = $_POST["name"];
             $surname = $_POST["surname"];
@@ -87,13 +87,11 @@ class Crud_users extends SessionController {
             $cel = $_POST["cel"];
             $email = $_POST["email"];
             $rol = $_POST["rol"];
-            $state = $_POST["state"];
-            $deleted = $_POST["deleted"];
             $password = $_POST["password"];
 
             $userModel = new UserModel();
             if ($userModel->createUser($username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $state, $deleted, $password)) {
+            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $password)) {
                 echo "Usuario creado exitosamente.";
             } else {
                 echo "Error al crear el usuario.";
