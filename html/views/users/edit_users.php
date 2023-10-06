@@ -33,7 +33,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                 <!-- Contenido del formulario -->
                 <div class="modal-body">
-                    <form method='post' action='http://localhost:8080/crud_users/editUser'>
+                    <form id="miFormulario" method='post' action='http://localhost:8080/crud_users/editUser'>
                         <input type='hidden' name='id' value='<?php echo $usuario->getId(); ?>'>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre de Usuario:</label>
@@ -120,18 +120,19 @@ echo 'ID de usuario no válido.';
 }
 ?>
 <script>
-    var existingUsernames = <?php echo $existingUsernames; ?>;
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault();
+var existingUsernames = <?php echo $existingUsernames; ?>;
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        var username = document.getElementById('username').value;
-        var usernameError = document.getElementById('username-error');
+    var username = document.getElementById('username').value;
+    var usernameError = document.getElementById('username-error');
 
-        if (existingUsernames.includes(username)) {
-            usernameError.innerText = 'El nombre de usuario ya está en uso.';
-        } else {
-            // Envía el formulario si el nombre de usuario no está en uso
-            this.submit();
-        }
-    });
+    if (existingUsernames.includes(username)) {
+        usernameError.innerText = 'El nombre de usuario ya está en uso.';
+    } else {
+        // Envía el formulario si el nombre de usuario no está en uso
+        this.submit();
+    }
+});
+
 </script>
