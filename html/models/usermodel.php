@@ -205,12 +205,13 @@ class UserModel extends Model{
             return false;
         }
     }
-    
     public function usernameExists($username) {
-        $query = $this->query("SELECT COUNT(*) as count FROM employees WHERE username = :username", ['username' => $username]);
+        $query = $this->prepare("SELECT COUNT(*) as count FROM employees WHERE username = :username");
+        $query->execute(['username' => $username]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['count'] > 0;
-    }    
+    }
+    
 
 
     public function update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
@@ -266,7 +267,7 @@ class UserModel extends Model{
     //     }
     // }
 public function createUser($username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-                            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $state, $deleted, $password) {
+                            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $password) {
     try {
         $database = new Database();
         $pdo = $database->connect();
@@ -288,6 +289,9 @@ public function createUser($username, $name, $surname, $dni, $gender, $province,
         localidad, calle, entreCalle1, entreCalle2, altura, id_rol, id_contact, state, deleted, password) 
         VALUES (:username, :name, :surname, :dni, :gender, :province, :localidad, :street, 
                 :bwStreet, :bwStreetTwo, :altura, :rol, LAST_INSERT_ID(), :state, :deleted, :password)');
+
+            $state = 0;
+            $deleted = 1;
 
         $queryEmployees->execute([
             'username' => $username,
