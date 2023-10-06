@@ -48,9 +48,9 @@ usort($usuarios, "cmp");
                     <td><?php echo $usuario->getRoleName(); ?></td>
                     <td><?php echo $usuario->getState(); ?></td>
                     <td>
-                        <form id="deleteForm" action='<?php echo constant('URL'); ?>crud_users/deleteUser' method="POST">
+                        <form id="deleteForm<?php echo $usuario->getId(); ?>" action='<?php echo constant('URL'); ?>crud_users/deleteUser' method="POST">
                             <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
-                            <button class="btn btn-danger" type="submit" name="eliminar" onclick="confirmDelete()">Eliminar</button>
+                            <button id="eliminarBtn" class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete('<?php echo $usuario->getId(); ?>')">Eliminar</button>
                         </form>
                     </td>
                     <td>
@@ -66,14 +66,15 @@ usort($usuarios, "cmp");
     <!-- Script para cargar el formulario de edición -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    function confirmDelete() {
-        if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-            document.getElementById("deleteForm").submit();
-        } else {
-            // El usuario ha cancelado, no hagas nada
+        function confirmDelete(userId) {
+            if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+                document.getElementById("deleteForm" + userId).submit();
+            } else {
+                // El usuario ha cancelado, no hagas nada
+            }
         }
-    }   
-    $(document).ready(function() {
+
+        $(document).ready(function() {
             // Maneja el clic en el botón "Editar"
             $(".btn-edit").click(function() {
                 var userId = $(this).data("id");
@@ -94,9 +95,5 @@ usort($usuarios, "cmp");
             });
         });
     </script>
-
-    <?php
-
-    ?>
 </body>
 </html>
