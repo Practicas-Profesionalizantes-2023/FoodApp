@@ -215,15 +215,26 @@ class UserModel extends Model{
 
 
     public function update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-                            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $role, $state){
+                            $bwStreet, $bwStreetTwo, $altura, $cel, $password, $email, $role, $state){
         try{
+
+            if (empty($_POST['password'])) {
+                //El campo de password está vacío
+            } else {
+                // Hashear el password antes de guardarlo en la base de datos
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $cont = 1;
+            }
+            
+
             $query = $this->prepare('UPDATE employees 
             INNER JOIN contacts ON employees.id_contact = contacts.id_contact 
             SET username = :username, name = :name, last_name = :surname,
             dni = :dni, id_gender = :gender, provincia = :province, localidad = :localidad, calle = :street,
-            entreCalle1 = :bwStreet, entreCalle2 = :bwStreetTwo, altura = :altura, cel = :cel, email = :email,
+            entreCalle1 = :bwStreet, entreCalle2 = :bwStreetTwo, altura = :altura, cel = :cel, password = :password, email = :email,
             id_rol = :id_rol, state = :state WHERE id_employee = :id');
-            $query->execute([
+
+            $params = [
                 'id' => $id,
                 'username' => $username,
                 'name' => $name,
@@ -240,7 +251,15 @@ class UserModel extends Model{
                 'email' => $email,
                 'id_rol' => $role,
                 'state' => $state,
-            ]);
+            ];
+
+            if ($cont == 1) {
+                $params['password'] = $hashedPassword;
+            }
+
+            $query->execute($params);
+
+
 
             return true;
         }catch(PDOException $e){
