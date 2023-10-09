@@ -130,8 +130,28 @@ document.querySelector('form').addEventListener('submit', function(event) {
     if (existingUsernames.includes(username)) {
         usernameError.innerText = 'El nombre de usuario ya está en uso.';
     } else {
-        // Envía el formulario si el nombre de usuario no está en uso
-        this.submit();
+        const formData = new FormData(this);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:8080/crud_users/editUser', true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // La solicitud se completó con éxito, maneja la respuesta aquí si es necesario
+                console.log(xhr.responseText);
+                
+                // Cerrar el modal después de enviar los datos
+                $('#editarUsuarioModal').modal('hide');
+
+                // Recargar solo el contenido relevante de la página
+                CargarContenido('views/users/crud_users.php', 'content-wrapper');
+            } else {
+                // Ocurrió un error durante la solicitud
+                console.error('Error en la solicitud: ' + xhr.status);
+            }
+        };
+
+        xhr.send(formData);
     }
 });
 
