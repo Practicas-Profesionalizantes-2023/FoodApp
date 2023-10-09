@@ -25,27 +25,31 @@ class Crud_users extends SessionController {
             echo "Usuario eliminado exitosamente.";
         } else {
             echo "Error al eliminar el usuario.";
-            // Registra el error en el archivo de registro
             error_log("Error al eliminar el usuario con ID " . $idUsuarioAEliminar);
         }
             
         }
     }
 
+
     public function editUser(){
         if($this->existPOST(['id', 'nombre', 'name', 'surname','dni', 'gender', 'province', 'localidad', 'street',
         'bwStreet','bwStreetTwo', 'altura', 'cel','password', 'email', 'rol', 'state'])){
             $id = $_POST["id"];
+            error_log($id);
             $username = $_POST["nombre"];
-            
+            error_log($username);
             // Verificar si el nuevo nombre de usuario ya existe en la base de datos
             $userModel = new UserModel();
-            if ($userModel->usernameExists($username)) {
+            if ($userModel->usernameExists($id, $username)) {
                 echo "El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario.";
+                error_log("El nombre de usuario ya esta en uso");
             } else {
                 // Resto de tus variables
                 $name = $_POST["name"];
+                error_log($name);
                 $surname = $_POST["surname"];
+                error_log($surname);
                 $dni = $_POST["dni"];
                 $gender = $_POST["gender"];
                 $province = $_POST["province"];
