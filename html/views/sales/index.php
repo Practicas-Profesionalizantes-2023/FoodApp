@@ -373,9 +373,10 @@ $(document).ready(function() {
     /* ======================================================================================
     TRAER LISTADO DE PRODUCTOS PARA INPUT DE AUTOCOMPLETADO
     ======================================================================================*/
+    
     $.ajax({
         async: false,
-        url: "ajax/productos.ajax.php",
+        url: "productsajax/ajaxListarNombreProductos",
         method: "POST",
         data: {
             'accion': 6
@@ -383,6 +384,7 @@ $(document).ready(function() {
         dataType: 'json',
         success: function(respuesta) {
 
+            
             for (let i = 0; i < respuesta.length; i++) {
                 items.push(respuesta[i]['descripcion_producto'])
             }
@@ -402,7 +404,11 @@ $(document).ready(function() {
                 }
             })
 
-        }
+        },error: function(jqXHR, textStatus, errorThrown) {
+                // Maneja el error aquí
+                console.log("Error en la solicitud AJAX: " + textStatus, errorThrown);
+                alert("Error al cargar el formulario de edición.");
+            }
     });
 
 
