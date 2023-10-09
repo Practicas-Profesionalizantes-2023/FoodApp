@@ -26,8 +26,8 @@ $rols = $userModel->getAllRole();
         <form id="miFormulario">
             <div class="mb-3">
                 <label for="username" class="form-label">Usuario:</label>
-                <input type="text" class="form-control" name="username" id="username" required>
-                <span id="username-error" maxlength="15" style="color: red;"></span>
+                <input type="text" maxlength="15" class="form-control" name="username" id="username" required>
+                <span id="username-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Nombre:</label>
