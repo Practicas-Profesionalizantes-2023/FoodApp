@@ -97,6 +97,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <input type='text' maxlength="15" class='form-control' name='cel' value='<?php echo $usuario->getContactCel(); ?>'>
                         </div>
                         <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type='password' maxlength="15" class='form-control' name='password'>
+                        </div>
+                        <div class="mb-3">
                             <label for="email" class="form-label">E-Mail:</label>
                             <input type='email' maxlength="50" class='form-control' name='email' value='<?php echo $usuario->getContactEmail(); ?>'>
                         </div>
