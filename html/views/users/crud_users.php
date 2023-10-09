@@ -12,7 +12,6 @@ function cmp($a, $b) {
     return $a->getId() - $b->getId();
 }
 
-// Ordena el array de usuarios usando la función de comparación
 usort($usuarios, "cmp");
 
 ?>
@@ -20,7 +19,6 @@ usort($usuarios, "cmp");
 <html>
 <head>
     <title>Empleados</title>
-        <!-- En la cabecera del HTML de la página donde está el botón para abrir el modal -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="views/users/edit_users.php"></script>
 </head>
@@ -65,7 +63,6 @@ usort($usuarios, "cmp");
     </tbody>
     </table>
     </div>
-<!-- Script para cargar el formulario de edición -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div id="edit-form-container" style="display: none;"></div>
 <script>
@@ -85,21 +82,16 @@ function confirmDelete(userId) {
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    // La solicitud se completó con éxito, maneja la respuesta aquí si es necesario
                     console.log(xhr.responseText);
-                    // Eliminar la fila correspondiente en la interfaz de usuario
                     var row = document.getElementById("userRow" + userId);
                     if (row) {
                         row.remove();
                     }
-                    // Recargar el contenido del contenedor después de eliminar el usuario
                     CargarContenido('views/users/crud_users.php', 'content-wrapper');
                 } else {
-                    // Ocurrió un error durante la solicitud
                     console.error('Error en la solicitud: ' + xhr.status);
                 }
             };
-            // Enviar la solicitud con el ID del usuario a eliminar
             xhr.send("id=" + userId);
         }
     });
@@ -110,18 +102,16 @@ function confirmDelete(userId) {
 <script>
 
         $(document).ready(function() {
-            // Maneja el clic en el botón "Editar"
             $(".btn-edit").click(function() {
                 var userId = $(this).data("id");
 
-                // Realiza una solicitud AJAX para obtener el formulario de edición
                 $.ajax({
-                    url: "views/users/edit_users.php", // Ruta al archivo de edición de usuario
+                    url: "views/users/edit_users.php",
                     type: "GET",
-                    data: { id: userId }, // Envía el ID del usuario
+                    data: { id: userId },
                     success: function(response) {
-                        // Muestra el formulario de edición en el contenedor
                         $("#edit-form-container").html(response).slideDown();
+                        event.preventDefault();
                     },
                     error: function() {
                         alert("Error al cargar el formulario de edición.");
