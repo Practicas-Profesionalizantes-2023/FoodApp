@@ -29,13 +29,12 @@ class Crud_users extends SessionController {
             error_log("Error al eliminar el usuario con ID " . $idUsuarioAEliminar);
         }
             
-
         }
     }
 
     public function editUser(){
         if($this->existPOST(['id', 'nombre', 'name', 'surname','dni', 'gender', 'province', 'localidad', 'street',
-        'bwStreet','bwStreetTwo', 'altura', 'cel', 'email', 'rol', 'state'])){
+        'bwStreet','bwStreetTwo', 'altura', 'cel','password', 'email', 'rol', 'state'])){
             $id = $_POST["id"];
             $username = $_POST["nombre"];
             
@@ -56,13 +55,14 @@ class Crud_users extends SessionController {
                 $bwStreetTwo = $_POST["bwStreetTwo"];
                 $altura = $_POST["altura"];
                 $cel = $_POST["cel"];
+                $password = $_POST["password"];
                 $email = $_POST["email"];
                 $rol = $_POST["rol"];
                 $state = $_POST["state"];
 
             $userModel = new UserModel();
     if ($userModel->update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-    $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $state)) {
+    $bwStreet, $bwStreetTwo, $altura, $cel, $password ,$email, $rol, $state)) {
         echo "Usuario actualizado exitosamente.";
     } else {
         echo "Error al actualizar el usuario.";
