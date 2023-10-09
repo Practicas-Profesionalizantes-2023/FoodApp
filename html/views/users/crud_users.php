@@ -20,6 +20,9 @@ usort($usuarios, "cmp");
 <html>
 <head>
     <title>Empleados</title>
+        <!-- En la cabecera del HTML de la página donde está el botón para abrir el modal -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="views/users/edit_users.php"></script>
 </head>
 <body>
 <div class="container">
@@ -62,17 +65,49 @@ usort($usuarios, "cmp");
     </tbody>
     </table>
     </div>
-    <div id="edit-form-container" style="display: none;"></div>
-    <!-- Script para cargar el formulario de edición -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function confirmDelete(userId) {
-            if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-                document.getElementById("deleteForm" + userId).submit();
-            } else {
-                // El usuario ha cancelado, no hagas nada
-            }
+<!-- Script para cargar el formulario de edición -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div id="edit-form-container" style="display: none;"></div>
+<script>
+function confirmDelete(userId) {
+    Swal.fire({
+        title: '¿Estás seguro de que deseas eliminar este usuario?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080/crud_users/deleteUser", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // La solicitud se completó con éxito, maneja la respuesta aquí si es necesario
+                    console.log(xhr.responseText);
+                    // Eliminar la fila correspondiente en la interfaz de usuario
+                    var row = document.getElementById("userRow" + userId);
+                    if (row) {
+                        row.remove();
+                    }
+                    // Recargar el contenido del contenedor después de eliminar el usuario
+                    CargarContenido('views/users/crud_users.php', 'content-wrapper');
+                } else {
+                    // Ocurrió un error durante la solicitud
+                    console.error('Error en la solicitud: ' + xhr.status);
+                }
+            };
+            // Enviar la solicitud con el ID del usuario a eliminar
+            xhr.send("id=" + userId);
         }
+    });
+}
+
+</script>
+
+<script>
 
         $(document).ready(function() {
             // Maneja el clic en el botón "Editar"
