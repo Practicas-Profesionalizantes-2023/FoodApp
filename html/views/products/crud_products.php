@@ -3,7 +3,10 @@ include_once "/var/www/html/models/productsmodel.php";
 $productsModel = new ProductsModel();
 
 $products = $productsModel->getAll();
-
+function cmp($a, $b) {
+    return $a->getId() - $b->getId();
+}
+usort($products, "cmp");
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,7 @@ $products = $productsModel->getAll();
                     <th>Stock</th>
                     <th>Precio</th>
                     <th>Proveedor</th>
+                    <th>Alerta stock</th>
                     <th>Eliminar Producto</th>
                     <th>Editar Producto</th>
                 </tr>
@@ -33,7 +37,8 @@ $products = $productsModel->getAll();
                     <td><?php echo $product->getItemName(); ?></td>
                     <td><?php echo $product->getStock(); ?></td>
                     <td><?php echo $product->getPrice(); ?></td>
-                    <td><?php echo $product->getIdProvider(); ?></td>
+                    <td><?php echo $product->getRazonSocial(); ?></td>
+                    <td><?php if(($product->getStock()) < ($product->getStockAlert())){echo 'CONSIDERE COMPRAR MÁS';} else{echo 'Va bien';}?></td>
                     <td>
                         <form id="deleteForm" action='<?php echo constant('URL'); ?>crud_products/deleteProduct' method="POST">
                             <input type="hidden" name="id" value="<?php echo $product->getId(); ?>">
@@ -50,12 +55,34 @@ $products = $productsModel->getAll();
     </div>
 </body>
 
+
+<div id="edit-form-container" style="display: none;"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function confirmDelete() {
-        if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+        if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
             document.getElementById("deleteForm").submit();
-        } else {
-            // El usuario ha cancelado, no hagas nada
-        }
+        } else {}
     }   
+
+    $(document).ready(function() {
+            // Maneja el clic en el botón "Editar"
+            $(".btn-edit").click(function() {
+                var userId = $(this).data("id");
+
+                // Realiza una solicitud AJAX para obtener el formulario de edición
+                $.ajax({
+                    url: "views/products/edit_products.php", // Ruta al archivo de edición de usuario
+                    type: "GET",
+                    data: { id: userId }, // Envía el ID del usuario
+                    success: function(response) {
+                    $("#edit-form-container").html(response).slideDown();
+                    },
+
+                    error: function() {
+                        alert("Error al cargar el formulario de edición.");
+                    }
+                });
+            });
+        });
 </script>
