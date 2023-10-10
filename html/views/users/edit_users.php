@@ -122,26 +122,28 @@ echo 'ID de usuario no válido.';
 ?>
 <script>
     var existingUsernames = <?php echo $existingUsernames; ?>;
-    var formUserId = <?php echo $usuario->getId(); ?>;
-    error_log(formUserId);
-    error_log(existingUsernames);
+    var existingUsernames = <?php echo $existingUsernames; ?>;
+var formUserId = <?php echo $usuario->getId(); ?>;
+error_log(formUserId);
+error_log(existingUsernames);
 
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault();
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        var username = document.getElementById('username').value;
-        var usernameError = document.getElementById('username-error');
+    var username = document.getElementById('username').value;
+    var dni = document.getElementById('dni').value; // Asegúrate de tener un campo de entrada para el DNI en tu formulario
+    var usernameError = document.getElementById('username-error');
 
-        var userExists = existingUsernames.find(function(user) {
-            return user.username === username;
-        });
-
-        if (userExists && userExists.id_employee !== formUserId) {
-            usernameError.innerText = 'El nombre de usuario ya está en uso por otro usuario.';
-        } else {
-            this.submit();
-        }
+    var userExists = existingUsernames.find(function(user) {
+        return user.username === username || user.dni === dni;
     });
+
+    if (userExists && userExists.id_employee !== formUserId) {
+        usernameError.innerText = 'El nombre de usuario o DNI ya está en uso por otro usuario.';
+    } else {
+        this.submit();
+    }
+});
 
 
 </script>
