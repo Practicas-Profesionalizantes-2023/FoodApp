@@ -30,7 +30,7 @@ class ProductsModel extends Model{
      public function getAll(){
         $items = [];
         try{
-        $query = $this->query('SELECT products.*, provedores.id_provedor
+        $query = $this->query('SELECT products.*, provedores.id_provedor, provedores.razon_social, provedores.CUIT
                                     FROM products
                                     JOIN provedores ON products.id_provedor = provedores.id_provedor');
             while($p = $query->fetch(PDO::FETCH_ASSOC)){
@@ -54,6 +54,50 @@ class ProductsModel extends Model{
         }
      }
 
+     public function getAllNames(){
+        $names = [];
+        try{
+            $query = $this->query('SELECT name_iten FROM products');
+            while($row = $query->fetch(PDO::FETCH_ASSOC)){
+                $names[] = $row['name_iten'];
+            }
+            return $names;
+        }catch(PDOException $e){
+            error_log('PRODUCTSMODEL::getAllNames-> PDOException '.$e);
+            return [];
+        }
+    }
+
+    public function get($id){
+        try{
+            $query = $this->prepare('SELECT products.*, provedores.id_provedor, provedores.razon_social, provedores.CUIT
+                                        FROM products
+                                        JOIN provedores ON products.id_provedor = provedores.id_provedor
+                                        WHERE products.id_product = :id;');
+            $query->execute([
+                'id' => $id,
+            ]);
+
+            $product = $query->fetch(PDO::FETCH_ASSOC);
+            if ($product === false) {
+                return null; // El producto no fue encontrado
+            }
+
+            $this->setItemName($product['name_iten']);
+            $this->setStock($product['stock']);
+            $this->setPrice($product['precio_unitario']);
+            $this->setIdProvider($product['id_provedor']);
+            $this->setRazonSocial($product['razon_social']);
+            $this->setCuit($product['CUIT']);
+            $this->setStockAlert($product['alerta_stock']);
+            return $this;
+
+        }catch(PDOException $e){
+            error_log('PRODUCTSMODEL::getId-> PDOException '.$e);
+            return null;
+        }
+    }
+
      public function delete($id){
         try {
             $query = $this->prepare('DELETE FROM products WHERE id_product = :id');
@@ -66,60 +110,59 @@ class ProductsModel extends Model{
             return false;
         }
     }
-    
 
-    
-    public function createProduct($username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-                                $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $state, $deleted, $password) {
+    public function createProduct($productName, $stock, $price, $providerId, $stockAlert) {
         try {
-            $database = new Database();
-            $pdo = $database->connect();
-            $pdo->beginTransaction();
-
-            // Consulta para insertar datos en la tabla contacts
-            $queryContacts = $pdo->prepare('INSERT INTO contacts(email, cel) VALUES (:email, :cel)');
-            
-            $queryContacts->execute([
-                'email' => $email,
-                'cel' => $cel,
+            $query = $this->prepare('INSERT INTO products (name_iten, stock, precio_unitario, id_provedor, alerta_stock) VALUES (:name, :stock, :price, :provider, :stockAlert)');
+            $query->execute([
+                'name' => $productName,
+                'stock' => $stock,
+                'price' => $price,
+                'provider' => $providerId,
+                'stockAlert' => $stockAlert,
             ]);
-
-            // Hashear el password antes de guardarlo en la base de datos
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            // Consulta para insertar datos en la tabla employees
-            $queryEmployees = $pdo->prepare('INSERT INTO employees(username, name, last_name, dni, id_gender, provincia,
-            localidad, calle, entreCalle1, entreCalle2, altura, id_rol, id_contact, state, deleted, password) 
-            VALUES (:username, :name, :surname, :dni, :gender, :province, :localidad, :street, 
-                    :bwStreet, :bwStreetTwo, :altura, :rol, LAST_INSERT_ID(), :state, :deleted, :password)');
-
-            $queryEmployees->execute([
-                'username' => $username,
-                'name' => $name,
-                'surname' => $surname,
-                'dni' => $dni,
-                'gender' => $gender,
-                'province' => $province,
-                'localidad' => $localidad,
-                'street' => $street,
-                'bwStreet' => $bwStreet,
-                'bwStreetTwo' => $bwStreetTwo,
-                'altura' => $altura,
-                'rol' => $rol,
-                'state' => $state,
-                'deleted' => $deleted,
-                'password' => $hashedPassword, // Guardamos el password hasheado
-            ]);
-
-            // Confirmar la transacción
-            $pdo->commit();
-
+    
             return true;
         } catch (PDOException $e) {
-            // Revertir la transacción en caso de error
-            $pdo->rollBack();
-            error_log('USERMODEL::createUser-> PDOException ' . $e);
+            error_log('PRODUCTSMODEL::createProduct-> PDOException ' . $e);
+            return false;
+        }
+    }
 
+    public function productNameExists($id, $name) {
+        try {
+            // Modifica la consulta SQL para excluir el producto actual
+            $query = $this->prepare("SELECT COUNT(*) as count FROM products WHERE name_iten = :name AND id_product != :id");
+            $query->execute([':name' => $name, ':id' => $id]);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result['count'] > 0;
+        } catch (PDOException $e) {
+            error_log('PRODUCTSMODEL::productNameExists-> PDOException ' . $e);
+            return false;
+        }
+    }
+
+    public function update($id, $productName, $stock, $price, $provider, $stockAlert){
+        try {
+            $query = $this->prepare('UPDATE products 
+            SET name_iten = :productName, stock = :stock, precio_unitario = :price,
+            id_provedor = (SELECT id_provedor FROM provedores WHERE id_provedor = :provider), 
+            alerta_stock = :stockAlert 
+            WHERE id_product = :id');
+            error_log("ABAJO EL ID QUE APARECE PERO EN UPDATE EN MODELO");
+            error_log($id);
+            $query->execute([
+                'id' => $id,
+                'productName' => $productName,
+                'stock' => $stock,
+                'price' => $price,
+                'provider' => $provider,
+                'stockAlert' => $stockAlert,
+            ]);
+            error_log('PRODUCTSMODEL::UPDATE-> ACÁ ESTOY, SI APAREZCO LLEGA AL MODELO');
+            return true;
+        } catch(PDOException $e) {
+            error_log('PRODUCTSMODEL::UPDATE-> ACÁ ESTOY, SI APAREZCO LLEGA AL MODELO PERO TIRA ERROR');
             return false;
         }
     }
@@ -142,7 +185,7 @@ class ProductsModel extends Model{
      public function getPrice(){                return $this->price;}
      public function getIdProvider(){                return $this->idProvider;}
      public function getStockAlert(){                return $this->stockAlert;}
-     public function getRazonSocial(){                return $this->razonSociial;}
+     public function getRazonSocial(){                return $this->razonSocial;}
      public function getCuit(){                return $this->cuit;}
 
 }//cierra Clase
