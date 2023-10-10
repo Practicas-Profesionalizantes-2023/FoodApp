@@ -39,9 +39,11 @@ class Crud_users extends SessionController {
             error_log($id);
             $username = $_POST["nombre"];
             error_log($username);
+            $dni = $_POST["dni"];
+            error_log($dni);
             // Verificar si el nuevo nombre de usuario ya existe en la base de datos
             $userModel = new UserModel();
-            if ($userModel->usernameExists($id, $username)) {
+            if ($userModel->usernameExists($id, $username,$dni)) {
                 echo "El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario.";
                 error_log("El nombre de usuario ya esta en uso");
             } else {
@@ -50,7 +52,6 @@ class Crud_users extends SessionController {
                 error_log($name);
                 $surname = $_POST["surname"];
                 error_log($surname);
-                $dni = $_POST["dni"];
                 $gender = $_POST["gender"];
                 $province = $_POST["province"];
                 $localidad = $_POST["localidad"];
