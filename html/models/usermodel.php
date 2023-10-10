@@ -207,17 +207,19 @@ class UserModel extends Model{
     }
 
     
-    public function usernameExists($id, $username) {
+    public function usernameExists($id, $username, $dni) {
         try {
-            $query = $this->prepare("SELECT COUNT(*) as count FROM employees WHERE username = :username AND id_employee != :id");
-            $query->execute([':username' => $username, ':id' => $id]);
+            $query = $this->prepare("SELECT COUNT(*) as count FROM employees WHERE (username = :username OR dni = :dni) AND id_employee != :id");
+            $query->execute([':username' => $username, ':id' => $id, ':dni' => $dni]);
             $result = $query->fetch(PDO::FETCH_ASSOC);
             return $result['count'] > 0;
         } catch (PDOException $e) {
-            error_log('errorr usuario exisstente ' . $e);
-            return false;
+            error_log('Error: ' . $e);
+            return false;  
         }
     }
+    
+    
 
     public function update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
                             $bwStreet, $bwStreetTwo, $altura, $cel, $password, $email, $role, $state){
