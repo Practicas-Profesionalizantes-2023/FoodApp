@@ -37,7 +37,8 @@ $rols = $userModel->getAllRole();
             </div>
             <div class="mb-3">
                 <label for="dni" class="form-label">DNI:</label>
-                <input type="text" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="dni" required>
+                <input type="text" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="dni" id="dni"required>
+                <span id="dni-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
                 <label for="gender" class="form-label">Genero:</label>
@@ -104,20 +105,24 @@ $rols = $userModel->getAllRole();
 <script>
 
     var existingUsernames = <?php echo json_encode($userModel->getAllUsernames()); ?>;
+    var existingDnis = <?php echo json_encode($userModel->getAllDni()); ?>;
     document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
 
         var username = document.getElementById('username').value;
+        var dni = document.getElementById('dni').value;
         var usernameError = document.getElementById('username-error');
+        var dniError = document.getElementById('dni-error');
 
-        if (existingUsernames.includes(username)) {
+        if (existingUsernames.includes(username) || existingDnis.includes(dni)) {
 
-            usernameError.innerText = 'El nombre de usuario ya está en uso.';
+            usernameError.innerText = 'El nombre de usuario ya podria estar en uso.';
+            dniError.innerText = 'El dni ya podria estar en uso.';
          
             Swal.fire({
                     icon: 'error',
-                    title: 'USUARIO YA EXISTE',
-                    text: 'Por favor ingrese otro usuario'
+                    title: 'USUARIO/DNI YA EXISTE',
+                    text: 'Por favor ingrese otro usuario/dni'
                 }).then(() => {
           
                 });
