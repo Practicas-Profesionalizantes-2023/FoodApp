@@ -127,6 +127,22 @@ class UserModel extends Model{
     }
     
 
+    public function getAllDni(){
+        $dnis = [];
+        try{
+            $query = $this->query('SELECT dni FROM employees');
+            while($row = $query->fetch(PDO::FETCH_ASSOC)){
+                $dnis[] = $row['dni'];
+            }
+            return $dnis;
+        }catch(PDOException $e){
+            error_log('USERMODEL::getAllDni-> PDOException '.$e);
+            return [];
+        }
+    }
+
+
+
     public function getAllGender(){
         $items = [];
         try{
