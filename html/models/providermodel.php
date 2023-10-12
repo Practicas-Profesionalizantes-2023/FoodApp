@@ -31,9 +31,30 @@ class ProviderModel extends Model{
 
             return $items;
         }catch(PDOException $e){
-            error_log('PRODUCTSMODEL::getAll-> PDOException '.$e);
+            error_log('PROVIDERSMODEL::getAll-> PDOException '.$e);
         }
      }
+
+     public function get($id){
+        try{
+            $query = $this->prepare('SELECT * FROM provedores WHERE provedores.id_provedor = :id;');
+            $query->execute([
+                'id' => $id,
+            ]);
+
+            $provider = $query->fetch(PDO::FETCH_ASSOC);
+            if ($provider === false) {
+                return null; // El producto no fue encontrado
+            }
+            $this->setRazonSocial($provider['razon_social']);
+            $this->setCuit($provider['CUIT']);
+            return $this;
+
+        }catch(PDOException $e){
+            error_log('PROVIDERSMODEL::getId-> PDOException '.$e);
+            return null;
+        }
+    }
 
     public function createProvider($razonSocial, $cuit)
     {
@@ -51,6 +72,21 @@ class ProviderModel extends Model{
             return false;
         }
     }
+
+    public function delete($id){
+        try {
+            $query = $this->prepare('DELETE FROM provedores WHERE id_provedor = :id');
+            $query->execute([
+                'id' => $id,
+            ]);
+            return true;
+        } catch(PDOException $e) {
+            error_log('PRODUCTSMODEL::delete-> PDOException '.$e);
+            return false;
+        }
+    }
+
+
 
      public function setId($id){             $this->id = $id;  }
      public function setCuit($cuit){             $this->cuit = $cuit;  }
