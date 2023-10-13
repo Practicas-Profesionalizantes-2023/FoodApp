@@ -44,8 +44,6 @@ class Crud_providers extends SessionController {
     public function editProviders(){
         if($this->existPOST(['id', 'providerName', 'CUIT'])){
             $id = $_POST["id"];
-            error_log('ESTE ES EL ID QUE RECIBE EN EL CONTROLADOR editProviders');
-            error_log($id);
             $providerName = $_POST["providerName"]; 
             $CUIT = $_POST["CUIT"];
 
@@ -53,12 +51,12 @@ class Crud_providers extends SessionController {
             if ($providerModel->providerNameExists($id, $providerName, $CUIT)) {
                 echo "Ya existe ese proveedor.";
                 error_log('CONTROLADOR::PROVEEDORES-> EL USUARIO YA EXISTE TE TIRA ERROR');
-            } else {
-                error_log('CONTROLADOR::PROVEEDORES-> SE GUARDA LO RECIBIDO EN VARIAS VARIABLES');
-                $providerModel = new ProviderModel();
 
-                if ($providerModel->update($id, $productName, $stock)) {
+            } else {
+
+                if ($providerModel->update($id, $providerName, $CUIT)) {
                     error_log('CONTROLADOR::PROVEEDORES-> SE ENVÍA');
+
                 } else {
                     echo "Error al actualizar el Producto.";
                     error_log('CONTROLADOR::PROVEEDORES-> HAY ALGÚN ERROR AL ACTUALIZAR EL PROVEEDOR');
