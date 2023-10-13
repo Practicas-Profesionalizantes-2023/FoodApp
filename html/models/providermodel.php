@@ -86,6 +86,39 @@ class ProviderModel extends Model{
         }
     }
 
+    public function providerNameExists($id, $providerName, $cuit) {
+        try {
+            // Modifica la consulta SQL para excluir el producto actual
+            $query = $this->prepare("SELECT COUNT(*) as count FROM provedores WHERE (razon_social = :providerName OR CUIT = :cuit) AND id_product != :id");
+            $query->execute([':providerName' => $providerName, ':cuit' => $cuit, ':id' => $id]);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result['count'] > 0;
+        } catch (PDOException $e) {
+            error_log('PROVIDERSMODEL::providerNameExists-> PDOException ' . $e);
+            return false;
+        }
+    }
+
+    public function update($id, $providerName, $cuit){
+        try {
+            $query = $this->prepare('UPDATE provedores 
+            SET razon_social = :providerName, CUIT = :cuit
+            WHERE id_provedor = :id');
+            error_log("ABAJO EL ID QUE APARECE PERO EN UPDATE EN MODELO");
+            error_log($id);
+            $query->execute([
+                'id' => $id,
+                'providerName' => $providerName,
+                'cuit' => $cuit,
+            ]);
+            error_log('PROVIDERSMODEL::UPDATE-> ACÁ ESTOY, SI APAREZCO LLEGA AL MODELO');
+            return true;
+        } catch(PDOException $e) {
+            error_log('PROVIDERSMODEL::UPDATE-> ACÁ ESTOY, SI APAREZCO LLEGA AL MODELO PERO TIRA ERROR');
+            return false;
+        }
+    }
+
 
 
      public function setId($id){             $this->id = $id;  }
