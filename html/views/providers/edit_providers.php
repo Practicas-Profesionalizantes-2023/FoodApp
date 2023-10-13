@@ -1,21 +1,20 @@
 <?php
 include_once "../../models/providermodel.php"; 
 
-// Verifica si se ha pasado un ID de usuario válido en la URL
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $userId = $_GET['id'];
-    var_dump($userId);
     $providerModel = new ProviderModel();
 
-    // Obtén los datos del usuario por su ID
     $providers = $providerModel->get($userId);
 
-    // Verifica si el usuario existe
     if ($providers) {
-        // $existingUsernames = json_encode($productsModel->getAllNames());
         $razonesSociales = array();
         foreach ($providers as $provider) {
             $razonesSociales[] = $provider->getRazonSocial();
+        }
+        $CUIT = array();
+        foreach ($providers as $provider) {
+            $CUIT[] = $provider->getCuit();
         }
 
 ?>
@@ -40,12 +39,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <input type='hidden' name='id' value='<?php echo $userId; ?>'>
                         <div class="mb-3">
                             <label for="providerName" class="form-label">Razón Social:</label>
-                            <input required type='text' class='form-control' name='providerName' id="providerName" value='<?php echo $providers->getRazonSocial(); ?>'>
+                            <input required type='text' maxlength="20" class='form-control' name='providerName' id="providerName" value='<?php echo $providers->getRazonSocial(); ?>'>
                             <span id="providerName-error" style="color: red;"></span>
                         </div>
                         <div class="mb-3">
                             <label for="CUIT" class="form-label">CUIT:</label>
-                            <input type='text' class='form-control' name='CUIT' value='<?php echo $providers->getCuit(); ?>'>
+                            <input type='text' maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class='form-control' name='CUIT' id="CUIT" value='<?php echo $providers->getCuit(); ?>'>
+                            <span id="CUIT-error" style="color: red;"></span>
                         </div>
                         <button type='submit' class='btn btn-primary'>Guardar</button>
                     </form>
@@ -65,15 +65,20 @@ echo 'ID de proveedor no válido.';
 
 <script>
     var existingNames = <?php echo json_encode($razonesSociales); ?>;
+    var existingCuit = <?php echo json_encode($CUIT); ?>;
     document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
 
         var provider = document.getElementById('providerName').value;
         var providerError = document.getElementById('providerName-error');
+        var cuit = document.getElementById('CUIT').value;
+        var cuitError = document.getElementById('CUIT-error');
 
         if (existingNames.includes(provider)) {
             providerError.innerText = 'El proveedor ya está registrado.';
-        } else {
+        } else if(existingCuit.includes(cuit)){
+            cuitError.innerText = 'El CUIT ya está registrado';
+        } else{
             this.submit();
         }
 
