@@ -11,6 +11,10 @@ $razonesSociales = array();
 foreach ($providers as $provider) {
     $razonesSociales[] = $provider->getRazonSocial();
 }
+$CUIT = array();
+foreach ($providers as $provider) {
+    $CUIT[] = $provider->getCuit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,12 +31,13 @@ foreach ($providers as $provider) {
             <form method="post" action="http://localhost:8080/crud_providers/createProvider">
                 <div class="mb-3">
                     <label for="providerName" class="form-label">Razón social:</label>
-                    <input type="text" class="form-control" name="providerName" id="providerName" required>
+                    <input type="text" maxlength="20" class="form-control" name="providerName" id="providerName" required>
                     <span id="providerName-error" style="color: red;"></span>
                 </div>
                 <div class="mb-3">
                     <label for="CUIT" class="form-label">CUIT:</label>
-                    <input type="text" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="CUIT" required>
+                    <input type="text" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="CUIT" id="CUIT" required>
+                    <span id="CUIT-error" style="color: red;"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
@@ -42,15 +47,20 @@ foreach ($providers as $provider) {
 
 <script>
     var existingNames = <?php echo json_encode($razonesSociales); ?>;
+    var existingCuit = <?php echo json_encode($CUIT); ?>;
     document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
 
         var provider = document.getElementById('providerName').value;
         var providerError = document.getElementById('providerName-error');
+        var cuit = document.getElementById('CUIT').value;
+        var cuitError = document.getElementById('CUIT-error');
 
         if (existingNames.includes(provider)) {
             providerError.innerText = 'El proveedor ya está registrado.';
-        } else {
+        } else if(existingCuit.includes(cuit)){
+            cuitError.innerText = 'El CUIT ya está registrado';
+        } else{
             this.submit();
         }
 
