@@ -23,12 +23,11 @@ foreach ($providers as $provider) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
     <body>
         <div class="container">
             <h2 class="text-center mb-4">Registro de Proveedor</h2>
-            <form method="post" action="http://localhost:8080/crud_providers/createProvider">
+            <form method="post" action="http://localhost:8080/crud_providers/createProvider" id="miFormulario">
                 <div class="mb-3">
                     <label for="providerName" class="form-label">Razón social:</label>
                     <input type="text" maxlength="20" class="form-control" name="providerName" id="providerName" required>
@@ -58,11 +57,57 @@ foreach ($providers as $provider) {
 
         if (existingNames.includes(provider)) {
             providerError.innerText = 'El proveedor ya está registrado.';
+            Swal.fire({
+                    icon: 'error',
+                    title: 'PROVEEDOR YA EXISTE',
+                    text: 'Por favor ingrese otro Proveedor.'
+                }).then(() => {
+          
+                });
         } else if(existingCuit.includes(cuit)){
             cuitError.innerText = 'El CUIT ya está registrado';
+            Swal.fire({
+                    icon: 'error',
+                    title: 'CUIT YA EXISTE',
+                    text: 'Por favor ingrese otro CUIT.'
+                }).then(() => {
+          
+                });
         } else{
-            this.submit();
-        }
+            const formulario = document.getElementById('miFormulario');
 
+            formulario.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(formulario);
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'http://localhost:8080/crud_providers/createProvider', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Formulario enviado con éxito'
+                }).then(() => {
+                    formulario.reset();
+                });
+                } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al enviar el formulario',
+                });
+                }
+            };
+
+            xhr.send(formData);
+            });
+
+        }
     });
+        
 </script>

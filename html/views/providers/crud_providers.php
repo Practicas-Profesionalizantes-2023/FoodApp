@@ -33,7 +33,7 @@ $providers = $providerModel->getAll();
                     <td>
                         <form id="deleteForm" action='<?php echo constant('URL'); ?>crud_providers/deleteProvider' method="POST">
                             <input type="hidden" name="id" value="<?php echo $provider->getId(); ?>">
-                            <button class="btn btn-danger" type="submit" name="eliminar" onclick="confirmDelete()">Eliminar</button>
+                            <button class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete('<?php echo $provider->getId(); ?>')">Eliminar</button>
                         </form>
                     </td>
                     <td>
@@ -53,13 +53,13 @@ $providers = $providerModel->getAll();
 $(document).ready(function() {
             // Maneja el clic en el botón "Editar"
             $(".btn-edit").click(function() {
-                var userId = $(this).data("id");
+                var providerId = $(this).data("id");
 
                 // Realiza una solicitud AJAX para obtener el formulario de edición
                 $.ajax({
                     url: "views/providers/edit_providers.php", // Ruta al archivo de edición de usuario
                     type: "GET",
-                    data: { id: userId }, // Envía el ID del usuario
+                    data: { id: providerId }, // Envía el ID del usuario
                     success: function(response) {
                     $("#edit-form-container").html(response).slideDown();
                     },
@@ -71,10 +71,38 @@ $(document).ready(function() {
             });
         });
 </script>
+
 <script>
-function confirmDelete() {
-        if (confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
-            document.getElementById("deleteForm").submit();
-        } else {}
-    }   
+function confirmDelete(providerId) {
+    Swal.fire({
+        title: '¿Estás seguro de que deseas eliminar este Proveedor?',
+        icon: 'warning',
+        text: 'Asegúrese de eliminar los productos del proveedor para que esto sea exitoso.',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080/crud_providers/deleteProvider", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    var row = document.getElementById("userRow" + providerId);
+                    if (row) {
+                        row.remove();
+                    }
+                    CargarContenido('views/providers/crud_providers.php', 'content-wrapper');
+                } else {
+                    console.error('Error en la solicitud: ' + xhr.status);
+                }
+            };
+            xhr.send("id=" + providerId);
+        }
+    });
+}
+
 </script>
