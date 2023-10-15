@@ -42,7 +42,7 @@ usort($products, "cmp");
                     <td>
                         <form id="deleteForm" action='<?php echo constant('URL'); ?>crud_products/deleteProduct' method="POST">
                             <input type="hidden" name="id" value="<?php echo $product->getId(); ?>">
-                            <button class="btn btn-danger" type="submit" name="eliminar" onclick="confirmDelete()">Eliminar</button>
+                            <button class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete('<?php echo $product->getId(); ?>')">Eliminar</button>
                         </form>
                     </td>
                     <td>
@@ -85,4 +85,38 @@ function confirmDelete() {
                 });
             });
         });
+</script>
+
+<script>
+function confirmDelete(productId) {
+    Swal.fire({
+        title: '¿Estás seguro de que deseas eliminar este producto?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080/crud_products/deleteProduct", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    var row = document.getElementById("userRow" + productId);
+                    if (row) {
+                        row.remove();
+                    }
+                    CargarContenido('views/products/crud_products.php', 'content-wrapper');
+                } else {
+                    console.error('Error en la solicitud: ' + xhr.status);
+                }
+            };
+            xhr.send("id=" + productId);
+        }
+    });
+}
+
 </script>

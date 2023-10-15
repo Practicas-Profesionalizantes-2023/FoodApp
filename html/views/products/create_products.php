@@ -20,12 +20,11 @@ $providers = $providerModel->getAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
     <body>
         <div class="container">
             <h2 class="text-center mb-4">Adición de productos</h2>
-            <form method="post" action="http://localhost:8080/crud_products/createProduct">
+            <form method="post" action="http://localhost:8080/crud_products/createProduct" id="miFormulario">
                 <div class="mb-3">
                     <label for="productname" class="form-label">Nombre del producto:</label>
                     <input type="text" class="form-control" name="productname" id="productname" maxlength="50" required>
@@ -69,9 +68,47 @@ $providers = $providerModel->getAll();
 
         if (existingNames.includes(product)) {
             productError.innerText = 'El producto ya existe.';
+            Swal.fire({
+                    icon: 'error',
+                    title: 'EL PRODUCTO YA EXISTE',
+                    text: 'Por favor ingrese uno nuevo.'
+                }).then(() => {
+          
+                });
         } else {
-            this.submit();
-        }
+            const formulario = document.getElementById('miFormulario');
 
+            formulario.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(formulario);
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'http://localhost:8080/crud_products/createProduct', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Formulario enviado con éxito'
+                }).then(() => {
+                    formulario.reset();
+                });
+                } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al enviar el formulario',
+                });
+                }
+            };
+
+            xhr.send(formData);
+            });
+
+        }
     });
 </script>
