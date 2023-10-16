@@ -1,53 +1,47 @@
 <?php
 
-class Sales extends SessionController {
+require_once "/var/www/html/models/salesmodel.php";
+
+class Sales{
     function __construct(){
-        parent::__construct();
-        error_log('Sales-> inicio de SAles');
-
-    }
-
-    static public function ctrObtenerNroBoleta(){
         
-        $nroBoleta = VentasModelo::mdlObtenerNroBoleta();
-
-        return $nroBoleta;
+        error_log('Login-> inicio de login');
 
     }
 
-
-    static public function ctrRegistrarVenta($datos,$nro_boleta,$total_venta,$descripcion_venta){
-        
-        $productos = VentasModelo::mdlRegistrarVenta($datos,$nro_boleta,$total_venta,$descripcion_venta);
-      
-        return $productos;
-
+    public function render() {
+        error_log('DASHBOARD -> CARGA EL INDEX DASHBOARD');
     }
 
+    /*===================================================================
+    LISTAR NOMBRE DE PRODUCTOS PARA INPUT DE AUTOCOMPLETADO
+    ====================================================================*/
+    public function ctrListProduct() {
+        error_log('Products::ctrListarNombreProductos');
+        $producto = Salesmodel::mdlListProduct();
 
-    static public function ctrListarVentas($fechaDesde, $fechaHasta){
+        return $producto;
+    }
+    public function shearchMenuId($id_menu) {
+        error_log('Products::ctrListarNombreProductos');
+        $producto = Salesmodel::mdShearchMenuId($id_menu);
 
-        $ventas = VentasModelo::mdlListarVentas($fechaDesde,$fechaHasta);
-
-        return $ventas;
+        return $producto;
     }
 
-    static public function ctrObtenerDetalleVenta($nro_boleta)
-    {
-        $detalle_venta = VentasModelo::mdlObtenerDetalleVenta($nro_boleta);
+    public function crlVerifyStock($id_menu, $cantidad) {
+        error_log('Products::ctrListarNombreProductos');
+        $producto = Salesmodel::mdVerifyStock($id_menu, $cantidad);
 
-        return $detalle_venta;
+        return $producto;
     }
+    public function crlRegisterVenta($array, $totalVenta, $payment) {
+        error_log('Products::ctrListarNombreProductos');
+        $producto = Salesmodel::mdlRegisterVenta($array, $totalVenta, $payment);
 
-
+        return $producto;
+    }
 
 }
-
-
-
-
-
-
-
 
 ?>
