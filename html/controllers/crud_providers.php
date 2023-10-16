@@ -15,18 +15,23 @@ class Crud_providers extends SessionController {
 
     public function createProvider(){
         if($this->existPOST(['providerName', 'CUIT'])){
-            $providerName = $_POST["providerName"];
+            $providerName = strtolower($_POST["providerName"]);
             $CUIT = $_POST["CUIT"];
-
+    
             $providerModel = new ProviderModel();
-            if ($providerModel->createProvider($providerName, $CUIT)) {
-                echo "Proveedor ingresado exitosamente.";
+    
+            if ($providerModel->providerNameExists(0, $providerName, $CUIT)) {
+                echo "Ya existe ese proveedor.";
             } else {
-                echo "Error al crear el proveedor.";
+                if ($providerModel->createProvider($providerName, $CUIT)) {
+                    echo "Proveedor ingresado exitosamente.";
+                } else {
+                    echo "Error al crear el proveedor.";
+                }
             }
-
         }
     }
+    
 
     public function deleteProvider(){
         if($this->existPOST(['id'])){
@@ -44,7 +49,7 @@ class Crud_providers extends SessionController {
     public function editProviders(){
         if($this->existPOST(['id', 'providerName', 'CUIT'])){
             $id = $_POST["id"];
-            $providerName = $_POST["providerName"]; 
+            $providerName = strtolower($_POST["providerName"]); 
             $CUIT = $_POST["CUIT"];
 
             $providerModel = new ProviderModel();
