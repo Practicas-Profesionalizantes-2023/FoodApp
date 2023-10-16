@@ -1,15 +1,12 @@
 <?php
-include_once "../../models/usermodel.php"; // Asegúrate de que la ruta sea correcta
+include_once "../../models/usermodel.php";
 
-// Verifica si se ha pasado un ID de usuario válido en la URL
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $userId = $_GET['id'];
     $userModel = new UserModel();
 
-    // Obtén los datos del usuario por su ID
     $usuario = $userModel->get($userId);
 
-    // Verifica si el usuario existe
     if ($usuario) {
         $existingUsernames = json_encode($userModel->getAllUsernames());
 
@@ -33,11 +30,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                 <!-- Contenido del formulario -->
                 <div class="modal-body">
-                    <form method='post' action='http://localhost:8080/crud_users/editUser'>
+                    <form id="miFormulario" method='post' action='http://localhost:8080/crud_users/editUser'>
                         <input type='hidden' name='id' value='<?php echo $usuario->getId(); ?>'>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre de Usuario:</label>
-                            <input required type='text' class='form-control' name='nombre' id="username" value='<?php echo $usuario->getUsername(); ?>'>
+                            <input required type='text' maxlength="30" class='form-control' name='nombre' id="username" value='<?php echo $usuario->getUsername(); ?>'>
                             <span id="username-error" style="color: red;"></span>
                         </div>
                         <div class="mb-3">
@@ -50,15 +47,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre</label>
-                            <input type='text' class='form-control' name='name' value='<?php echo $usuario->getName(); ?>'>
+                            <input type='text' maxlength="14" class='form-control' name='name' value='<?php echo $usuario->getName(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="surname" class="form-label">Apellido:</label>
-                            <input type='text' class='form-control' name='surname' value='<?php echo $usuario->getSurname(); ?>'>
+                            <input type='text' maxlength="14" class='form-control' name='surname' value='<?php echo $usuario->getSurname(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="dni" class="form-label">DNI:</label>
-                            <input type="text" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class='form-control' name='dni' value='<?php echo $usuario->getDni(); ?>'>
+                            <input type="text" maxlength="8"  maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class='form-control' name='dni' value='<?php echo $usuario->getDni(); ?>'>
                         </div>
                         <div class="mb-3">
                         <label for="gender" class="form-label">Género:</label>
@@ -70,39 +67,39 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="province" class="form-label">Provincia:</label>
-                            <input type='text' class='form-control' name='province' value='<?php echo $usuario->getProvince(); ?>'>
+                            <input type='text' maxlength="20" class='form-control' name='province' value='<?php echo $usuario->getProvince(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="localidad" class="form-label">Localidad:</label>
-                            <input type='text' class='form-control' name='localidad' value='<?php echo $usuario->getLocalidad(); ?>'>
+                            <input type='text' maxlength="20" class='form-control' name='localidad' value='<?php echo $usuario->getLocalidad(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="street" class="form-label">Calle:</label>
-                            <input type='text' class='form-control' name='street' value='<?php echo $usuario->getStreet(); ?>'>
+                            <input type='text' maxlength="20" class='form-control' name='street' value='<?php echo $usuario->getStreet(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="bwStreet" class="form-label">Entre Calle 1:</label>
-                            <input type='text' class='form-control' name='bwStreet' value='<?php echo $usuario->getBwStreet(); ?>'>
+                            <input type='text' maxlength="20" class='form-control' name='bwStreet' value='<?php echo $usuario->getBwStreet(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="bwStreetTwo" class="form-label">Entre Calle 2:</label>
-                            <input type='text' class='form-control' name='bwStreetTwo' value='<?php echo $usuario->getBwStreetTwo(); ?>'>
+                            <input type='text' maxlength="20" class='form-control' name='bwStreetTwo' value='<?php echo $usuario->getBwStreetTwo(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="altura" class="form-label">Altura:</label>
-                            <input type='text' class='form-control' name='altura' value='<?php echo $usuario->getAltura(); ?>'>
+                            <input type='text' maxlength="8" class='form-control' name='altura' value='<?php echo $usuario->getAltura(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="cel" class="form-label">Celular:</label>
-                            <input type='text' class='form-control' name='cel' value='<?php echo $usuario->getContactCel(); ?>'>
+                            <input type='text' maxlength="20" class='form-control' name='cel' value='<?php echo $usuario->getContactCel(); ?>'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type='password' maxlength="30" class='form-control' name='password'>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-Mail:</label>
-                            <input type='text' class='form-control' name='email' value='<?php echo $usuario->getContactEmail(); ?>'>
-                        </div>
-                        <div class="mb-3">
-                            <label for="state" class="form-label">Estado:</label>
-                            <input type='text' class='form-control' name='state' value='<?php echo $usuario->getState(); ?>'>
+                            <input type='email' maxlength="50" class='form-control' name='email' value='<?php echo $usuario->getContactEmail(); ?>'>
                         </div>
                         <button type='submit' class='btn btn-primary'>Guardar</button>
                     </form>
@@ -121,17 +118,28 @@ echo 'ID de usuario no válido.';
 ?>
 <script>
     var existingUsernames = <?php echo $existingUsernames; ?>;
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault();
+    var existingUsernames = <?php echo $existingUsernames; ?>;
+var formUserId = <?php echo $usuario->getId(); ?>;
+error_log(formUserId);
+error_log(existingUsernames);
 
-        var username = document.getElementById('username').value;
-        var usernameError = document.getElementById('username-error');
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        if (existingUsernames.includes(username)) {
-            usernameError.innerText = 'El nombre de usuario ya está en uso.';
-        } else {
-            // Envía el formulario si el nombre de usuario no está en uso
-            this.submit();
-        }
+    var username = document.getElementById('username').value;
+    var dni = document.getElementById('dni').value;
+    var usernameError = document.getElementById('username-error');
+
+    var userExists = existingUsernames.find(function(user) {
+        return user.username === username || user.dni === dni;
     });
+
+    if (userExists && userExists.id_employee !== formUserId) {
+        usernameError.innerText = 'El nombre de usuario o DNI ya está en uso por otro usuario.';
+    } else {
+        this.submit();
+    }
+});
+
+
 </script>
