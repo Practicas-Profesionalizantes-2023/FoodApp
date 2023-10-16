@@ -2,15 +2,12 @@
 include_once "../../models/productsmodel.php"; 
 include_once "../../models/providermodel.php"; 
 
-// Verifica si se ha pasado un ID de usuario válido en la URL
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $userId = $_GET['id'];
     $productsModel = new ProductsModel();
 
-    // Obtén los datos del usuario por su ID
     $products = $productsModel->get($userId);
 
-    // Verifica si el usuario existe
     if ($products) {
         $existingUsernames = json_encode($productsModel->getAllNames());
         $providerModel = new ProviderModel();
@@ -42,11 +39,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="stock" class="form-label">Stock</label>
-                            <input type='text' class='form-control' name='stock' value='<?php echo $products->getStock(); ?>'>
+                            <input type='text' maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class='form-control' name='stock' value='<?php echo $products->getStock(); ?>'>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Precio:</label>
-                            <input type='text' class='form-control' name='price' value='<?php echo $products->getPrice(); ?>'>
+                            <input type='text' maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class='form-control' name='price' value='<?php echo $products->getPrice(); ?>'>
                         </div>
                         <div class="mb-3">
                         <label for="providerName" class="form-label">Proveedor:</label>
@@ -61,7 +58,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="stockAlert" class="form-label">Alerta stock:</label>
-                            <input type='text' class='form-control' name='stockAlert' value='<?php echo $products->getStockAlert(); ?>'>
+                            <input type='text' maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class='form-control' name='stockAlert' value='<?php echo $products->getStockAlert(); ?>'>
                         </div>
                         <button type='submit' class='btn btn-primary'>Guardar</button>
                     </form>

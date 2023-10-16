@@ -32,11 +32,11 @@ $providers = $providerModel->getAll();
                 </div>
                 <div class="mb-3">
                     <label for="stock" class="form-label">Stock:</label>
-                    <input type="text" class="form-control" name="stock" required>
+                    <input type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="stock" required>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Precio:</label>
-                    <input type="text" class="form-control" name="price" required>
+                    <input type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="price" required>
                 </div>
                 <div class="mb-3">
                     <label for="providerName" class="form-label">Proveedor:</label>
@@ -50,7 +50,7 @@ $providers = $providerModel->getAll();
                 </div>
                 <div class="mb-3">
                     <label for="stockAlert" class="form-label">Alerta de stock:</label>
-                    <input type="text" class="form-control" name="stockAlert" required>
+                    <input type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control" name="stockAlert" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
