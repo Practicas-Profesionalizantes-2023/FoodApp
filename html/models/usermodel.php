@@ -127,6 +127,22 @@ class UserModel extends Model{
     }
     
 
+    public function getAllDni(){
+        $dnis = [];
+        try{
+            $query = $this->query('SELECT dni FROM employees');
+            while($row = $query->fetch(PDO::FETCH_ASSOC)){
+                $dnis[] = $row['dni'];
+            }
+            return $dnis;
+        }catch(PDOException $e){
+            error_log('USERMODEL::getAllDni-> PDOException '.$e);
+            return [];
+        }
+    }
+
+
+
     public function getAllGender(){
         $items = [];
         try{
@@ -197,7 +213,7 @@ class UserModel extends Model{
             $query = $this->prepare('UPDATE employees SET deleted = :deleted WHERE id_employee = :id');
             $query->execute([
                 'deleted' => $deleted,
-                'id' => $id // Agrega esta línea para asignar el valor de $id
+                'id' => $id
             ]);
             return true;
         } catch(PDOException $e) {
@@ -205,24 +221,62 @@ class UserModel extends Model{
             return false;
         }
     }
-    
-    public function usernameExists($username) {
-        $query = $this->query("SELECT COUNT(*) as count FROM employees WHERE username = :username", ['username' => $username]);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-        return $result['count'] > 0;
-    }    
 
+
+
+
+    public function enabled($id, $enabled) {
+        try {
+            $query = $this->prepare('UPDATE employees SET deleted = :deleted WHERE id_employee = :id');
+            $query->execute([
+                'deleted' => $enabled,
+                'id' => $id
+            ]);
+            return true;
+        } catch(PDOException $e) {
+            error_log('USERMODEL::enabled-> PDOException '.$e);
+            return false;
+        }
+    }
+
+
+
+
+    public function usernameExists($id, $username, $dni) {
+        try {
+            $query = $this->prepare("SELECT COUNT(*) as count FROM employees WHERE (username = :username OR dni = :dni) AND id_employee != :id");
+            $query->execute([':username' => $username, ':id' => $id, ':dni' => $dni]);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result['count'] > 0;
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e);
+            return false;  
+        }
+    }
+    
+    
 
     public function update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-                            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $role, $state){
+                            $bwStreet, $bwStreetTwo, $altura, $cel, $password, $email, $role){
         try{
+            $cont = 0; // Define $cont como 0 inicialmente
+
+            if (empty($_POST['password'])) {
+                //El campo de password está vacío
+            } else {
+                // Hashear el password antes de guardarlo en la base de datos
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $cont = 1;
+            }
+            
             $query = $this->prepare('UPDATE employees 
             INNER JOIN contacts ON employees.id_contact = contacts.id_contact 
             SET username = :username, name = :name, last_name = :surname,
-            dni = :dni, id_gender = :gender, provincia = :province, localidad = :localidad, calle = :street,
-            entreCalle1 = :bwStreet, entreCalle2 = :bwStreetTwo, altura = :altura, cel = :cel, email = :email,
-            id_rol = :id_rol, state = :state WHERE id_employee = :id');
-            $query->execute([
+            dni = :dni, id_gender = :gender, provincia = :province, localidad = :localidad, 
+            calle = :street, entreCalle1 = :bwStreet, entreCalle2 = :bwStreetTwo, 
+            altura = :altura, cel = :cel, email = :email, id_rol = :id_rol ' . ($cont == 1 ? ', password = :password ' : '') . 'WHERE id_employee = :id');
+            
+            $params = [
                 'id' => $id,
                 'username' => $username,
                 'name' => $name,
@@ -238,8 +292,14 @@ class UserModel extends Model{
                 'cel' => $cel,
                 'email' => $email,
                 'id_rol' => $role,
-                'state' => $state,
-            ]);
+            ];
+            
+            if ($cont == 1) {
+                $params['password'] = $hashedPassword;
+            }
+            
+            $query->execute($params);
+        
 
             return true;
         }catch(PDOException $e){
@@ -249,30 +309,14 @@ class UserModel extends Model{
         }
     }
 
-    // public function save(){
-    //     try{
-    //         $query = $this->prepare('INSERT INTO employees(username, password, id_rol, state) VALUES (:username, :password, :role, :state)');
-    //         $query->execute([
-    //             'username' => $this->username,
-    //             'password' => $this->password,
-    //             'id_rol' => $this->role,
-    //             'state' => $this->state
-    //         ]);
-    //         return true; // Devuelve true si se guardó correctamente
-    
-    //     }catch(PDOException $e){
-    //         error_log('USERMODEL::save-> PDOException '.$e);
-    //         return false; // Devuelve false en caso de error
-    //     }
-    // }
+ 
 public function createUser($username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-                            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $state, $deleted, $password) {
+                            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $password) {
     try {
         $database = new Database();
         $pdo = $database->connect();
         $pdo->beginTransaction();
 
-        // Consulta para insertar datos en la tabla contacts
         $queryContacts = $pdo->prepare('INSERT INTO contacts(email, cel) VALUES (:email, :cel)');
         
         $queryContacts->execute([
@@ -283,11 +327,13 @@ public function createUser($username, $name, $surname, $dni, $gender, $province,
         // Hashear el password antes de guardarlo en la base de datos
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Consulta para insertar datos en la tabla employees
         $queryEmployees = $pdo->prepare('INSERT INTO employees(username, name, last_name, dni, id_gender, provincia,
         localidad, calle, entreCalle1, entreCalle2, altura, id_rol, id_contact, state, deleted, password) 
         VALUES (:username, :name, :surname, :dni, :gender, :province, :localidad, :street, 
                 :bwStreet, :bwStreetTwo, :altura, :rol, LAST_INSERT_ID(), :state, :deleted, :password)');
+
+            $state = 0;
+            $deleted = 1;
 
         $queryEmployees->execute([
             'username' => $username,
@@ -304,7 +350,7 @@ public function createUser($username, $name, $surname, $dni, $gender, $province,
             'rol' => $rol,
             'state' => $state,
             'deleted' => $deleted,
-            'password' => $hashedPassword, // Guardamos el password hasheado
+            'password' => $hashedPassword,
         ]);
 
         // Confirmar la transacción

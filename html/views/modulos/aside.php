@@ -59,7 +59,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  
                                      
                  if ($_SESSION["user_role"]==1) { ?>
-                 <li class="nav-item">
+                 <!-- <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
                          <p>
@@ -87,7 +87,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              </a>
                          </li>
                      </ul>
-                 </li>
+                 </li> -->
                  <?php }  if ($_SESSION["user_role"]==2 or $_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
