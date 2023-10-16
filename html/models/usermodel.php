@@ -1,6 +1,6 @@
 <?php
 
-class UserModel extends Model implements IModel{
+class UserModel extends Model {
 
     private $id;
     private $username;
