@@ -34,13 +34,13 @@ usort($usuarios, "cmp");
                     <th>Apellido</th>
                     <th>Rol</th>
                     <th>Estado</th>
+                    <th>Condicion</th>
                     <th>Eliminar Usuario</th>
                     <th>Editar Usuario</th>
                 </tr>
             </thead>
             <tbody>
         <?php foreach ($usuarios as $usuario): ?>
-            <?php if ($usuario->getDeleted() == 1): ?>
                 <tr>
                     <td><?php echo $usuario->getId(); ?></td>
                     <td><?php echo $usuario->getUsername(); ?></td>
@@ -48,17 +48,25 @@ usort($usuarios, "cmp");
                     <td><?php echo $usuario->getSurname(); ?></td>
                     <td><?php echo $usuario->getRoleName(); ?></td>
                     <td><?php echo $usuario->getState(); ?></td>
+                    <td><?php if(($usuario->getDeleted() < 1)){echo 'DESABILITADO';} else{echo 'HABILITADO';}?></td>
                     <td>
-                        <form id="deleteForm<?php echo $usuario->getId(); ?>" action='<?php echo constant('URL'); ?>crud_users/deleteUser' method="POST">
-                            <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
-                            <button id="eliminarBtn" class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete('<?php echo $usuario->getId(); ?>')">Eliminar</button>
-                        </form>
+                    <?php
+                    if ($usuario->getDeleted() > 0) {
+                        echo '<form id="deleteForm' . $usuario->getId() . '" action="' . constant('URL') . 'crud_users/deleteUser" method="POST">';
+                        echo '<input type="hidden" name="id" value="' . $usuario->getId() . '">';
+                        echo '<button id="eliminarBtn" class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete(\'' . $usuario->getId() . '\')">Eliminar</button>';
+                        echo '</form>';
+                    } else {
+                        echo '<form id="enabledForm' . $usuario->getId() . '" action="' . constant('URL') . 'crud_users/enabledUser" method="POST">';
+                        echo '<input type="hidden" name="id" value="' . $usuario->getId() . '">';
+                        echo '<button id="enabledBtn" class="btn btn-success" type="button" name="habilitar" onclick="confirmEnabled(\'' . $usuario->getId() . '\')">Habilitar</button>';
+                        echo '</form>';                    }
+                    ?>
                     </td>
                     <td>
                         <button class="btn btn-warning btn-edit" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" data-id="<?php echo $usuario->getId(); ?>">Editar</button>
                     </td>
                 </tr>
-            <?php endif; ?>
         <?php endforeach; ?>
     </tbody>
     </table>
@@ -79,6 +87,41 @@ function confirmDelete(userId) {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "http://localhost:8080/crud_users/deleteUser", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    var row = document.getElementById("userRow" + userId);
+                    if (row) {
+                        row.remove();
+                    }
+                    CargarContenido('views/users/crud_users.php', 'content-wrapper');
+                } else {
+                    console.error('Error en la solicitud: ' + xhr.status);
+                }
+            };
+            xhr.send("id=" + userId);
+        }
+    });
+}
+
+</script>
+
+
+<script>
+function confirmEnabled(userId) {
+    Swal.fire({
+        title: '¿Estás seguro de que deseas habilitar este usuario?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, habilitar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080/crud_users/enabledUser", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {
