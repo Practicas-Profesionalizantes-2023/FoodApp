@@ -32,9 +32,32 @@ class Crud_users extends SessionController {
     }
 
 
+
+    public function enabledUser(){
+        if($this->existPOST(['id'])){
+            $enabled = 1;
+            $idUsuarioAHabilitar = $this->getPOST('id');
+            error_log('dolete--> id: '. $idUsuarioAHabilitar);
+            $userModel = new UserModel();
+
+        // Intenta eliminar el usuario con la función delete
+        if ($userModel->enabled($idUsuarioAHabilitar, $enabled)) {
+            echo "Usuario habilitado exitosamente.";
+        } else {
+            echo "Error al habilitar el usuario.";
+            error_log("Error al habilitar el usuario con ID " . $idUsuarioAHabilitar);
+        }
+            
+        }
+    }
+
+
+
+
+
     public function editUser(){
         if($this->existPOST(['id', 'nombre', 'name', 'surname','dni', 'gender', 'province', 'localidad', 'street',
-        'bwStreet','bwStreetTwo', 'altura', 'cel','password', 'email', 'rol', 'state'])){
+        'bwStreet','bwStreetTwo', 'altura', 'cel','password', 'email', 'rol'])){
             $id = $_POST["id"];
             error_log($id);
             $username = $_POST["nombre"];
@@ -63,11 +86,10 @@ class Crud_users extends SessionController {
                 $password = $_POST["password"];
                 $email = $_POST["email"];
                 $rol = $_POST["rol"];
-                $state = $_POST["state"];
 
             $userModel = new UserModel();
     if ($userModel->update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-    $bwStreet, $bwStreetTwo, $altura, $cel, $password ,$email, $rol, $state)) {
+    $bwStreet, $bwStreetTwo, $altura, $cel, $password ,$email, $rol)) {
         echo "Usuario actualizado exitosamente.";
     } else {
         echo "Error al actualizar el usuario.";
