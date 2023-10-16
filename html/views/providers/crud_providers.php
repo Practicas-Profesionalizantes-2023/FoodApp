@@ -37,7 +37,7 @@ $providers = $providerModel->getAll();
                         </form>
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-edit" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" data-id="<?php echo $provider->getId(); ?>">Editar</button>
+                        <button class="btn btn-warning btn-edit" onclick="openEditModal(<?php echo $provider->getId(); ?>)">Editar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -46,33 +46,30 @@ $providers = $providerModel->getAll();
     </div>
 </body>
 
-<div id="edit-form-container" style="display: none;"></div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div id="edit-form-container" style="display: none;"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
-$(document).ready(function() {
-            // Maneja el clic en el botón "Editar"
-            $(".btn-edit").click(function() {
-                var providerId = $(this).data("id");
+function openEditModal(providerId) {
+    // Realiza una solicitud AJAX para obtener el formulario de edición
+    $.ajax({
+        url: "views/providers/edit_providers.php", 
+        type: "GET",
+        data: { id: providerId }, 
+        success: function(response) {
+            $("#edit-form-container").html(response).slideDown();
+            $("#editarUsuarioModal").modal("show");
+        },
+        error: function() {
+            alert("Error al cargar el formulario de edición.");
+        }
+    });
+}
 
-                // Realiza una solicitud AJAX para obtener el formulario de edición
-                $.ajax({
-                    url: "views/providers/edit_providers.php", // Ruta al archivo de edición de usuario
-                    type: "GET",
-                    data: { id: providerId }, // Envía el ID del usuario
-                    success: function(response) {
-                    $("#edit-form-container").html(response).slideDown();
-                    },
-
-                    error: function() {
-                        alert("Error al cargar el formulario de edición.");
-                    }
-                });
-            });
-        });
 </script>
-
 <script>
+
 function confirmDelete(providerId) {
     Swal.fire({
         title: '¿Estás seguro de que deseas eliminar este Proveedor?',
