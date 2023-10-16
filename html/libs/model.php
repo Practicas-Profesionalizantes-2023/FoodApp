@@ -1,7 +1,13 @@
 <?php
 
 
+
+include_once 'imodel.php';
+include_once 'database.php';
+
+
 class Model{
+    protected $db;
 
     function __construct(){
         $this->db = new Database();

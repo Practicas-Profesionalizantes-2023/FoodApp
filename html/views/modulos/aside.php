@@ -20,7 +20,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
      <!-- Brand Logo -->
      <a href="index.php" class="brand-link">
          <img src="views/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-         <span class="brand-text font-weight-light">APP FOOD</span>
+         <span class="brand-text  font-weight-bold">APP FOOD</span>
      </a>
 
     
@@ -59,11 +59,11 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  
                                      
                  if ($_SESSION["user_role"]==1) { ?>
-                 <li class="nav-item">
+                 <!-- <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
                          <p>
-                             Productos
+                         Productos
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
@@ -87,7 +87,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              </a>
                          </li>
                      </ul>
-                 </li>
+                 </li> -->
                  <?php }  if ($_SESSION["user_role"]==2 or $_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
@@ -117,6 +117,112 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              Compras
                          </p>
                      </a>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-users"></i>
+                         <i class="nav-icon fas fa-store-alt"></i>
+                         <p>Menu<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/crud_menus.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Menu</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/create_menu.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Menu</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="nav-icon fas fa-store-alt"></i>
+                         <p>Categorias<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/crud_categorys.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Categoria</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/create_category.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Categoria</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                  <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="nav-icon fas fa-store-alt"></i>
+                         <p>Empleados<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/users/crud_users.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Empleados</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/users/create_user.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Empleados</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-hamburger"></i>
+                         <p>Productos<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/products/crud_products.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Productos</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/products/create_products.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Productos</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-industry"></i>
+                         <p>Proveedores<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/providers/crud_providers.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/providers/create_providers.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar</p>
+                             </a>
+                         </li>
+                     </ul>
                  </li>
                  <li class="nav-item">
                      <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/reportes.php','content-wrapper')">
