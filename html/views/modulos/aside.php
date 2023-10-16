@@ -138,6 +138,12 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              </a>
                          </li>
                          <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/crud_categorys.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Categoria</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
                              <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/create_category.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Agregar Categoria</p>
