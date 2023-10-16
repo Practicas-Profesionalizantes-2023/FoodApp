@@ -1,7 +1,10 @@
 <?php
 
-class Database{
+include_once '/var/www/html/config/config.php';
+require_once '/var/www/html/config/config.php';
 
+class Database{
+    private $pdo;
     private $host;
     private $db;
     private $user;
@@ -24,14 +27,28 @@ class Database{
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ];
             
-            $pdo = new PDO($connection, $this->user, $this->password, $options);
+            $this->pdo = new PDO($connection, $this->user, $this->password, $options);
             error_log('Conexión a BD exitosa');
-            return $pdo;
+            return $this->pdo;
         }catch(PDOException $e){
             error_log('Error connection: ' . $e->getMessage());
         }
     }
+    public function getPDO() {
+        return $this->pdo;
+    }
 
+    public function beginTransaction() {
+        return $this->pdo->beginTransaction();
+    }
+
+    public function commit() {
+        return $this->pdo->commit();
+    }
+
+    public function rollBack() {
+        return $this->pdo->rollBack();
+    }
 }
 
 ?>
