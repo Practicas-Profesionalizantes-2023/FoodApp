@@ -89,7 +89,7 @@ class ProviderModel extends Model{
     public function providerNameExists($id, $providerName, $cuit) {
         try {
             // Modifica la consulta SQL para excluir el producto actual
-            $query = $this->prepare("SELECT COUNT(*) as count FROM provedores WHERE (razon_social = :providerName OR CUIT = :cuit) AND id_product != :id");
+            $query = $this->prepare("SELECT COUNT(*) as count FROM provedores WHERE (razon_social = :providerName OR CUIT = :cuit) AND id_provedor != :id");
             $query->execute([':providerName' => $providerName, ':cuit' => $cuit, ':id' => $id]);
             $result = $query->fetch(PDO::FETCH_ASSOC);
             return $result['count'] > 0;

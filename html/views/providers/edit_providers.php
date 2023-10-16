@@ -6,16 +6,18 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $providerModel = new ProviderModel();
 
     $providers = $providerModel->get($userId);
+    
+    $provedores = $providerModel->getAll();
+    $razonesSociales = array();
+    foreach ($provedores as $provider) {
+        $razonesSociales[] = $provider->getRazonSocial();
+    }
+    $CUIT = array();
+    foreach ($provedores as $provider) {
+        $CUIT[] = $provider->getCuit();
+    }
 
     if ($providers) {
-        $razonesSociales = array();
-        foreach ($providers as $provider) {
-            $razonesSociales[] = $provider->getRazonSocial();
-        }
-        $CUIT = array();
-        foreach ($providers as $provider) {
-            $CUIT[] = $provider->getCuit();
-        }
 
 ?>
 
