@@ -101,10 +101,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <label for="email" class="form-label">E-Mail:</label>
                             <input type='email' maxlength="50" class='form-control' name='email' value='<?php echo $usuario->getContactEmail(); ?>'>
                         </div>
-                        <div class="mb-3">
-                            <label for="state" class="form-label">Estado:</label>
-                            <input type='text' class='form-control' name='state' value='<?php echo $usuario->getState(); ?>'>
-                        </div>
                         <button type='submit' class='btn btn-primary'>Guardar</button>
                     </form>
                 </div>
@@ -131,7 +127,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var username = document.getElementById('username').value;
-    var dni = document.getElementById('dni').value; // Asegúrate de tener un campo de entrada para el DNI en tu formulario
+    var dni = document.getElementById('dni').value;
     var usernameError = document.getElementById('username-error');
 
     var userExists = existingUsernames.find(function(user) {
