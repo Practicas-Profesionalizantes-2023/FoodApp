@@ -64,15 +64,18 @@ usort($usuarios, "cmp");
                     ?>
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-edit" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" data-id="<?php echo $usuario->getId(); ?>">Editar</button>
+                        <button class="btn btn-warning btn-edit" onclick="openEditModal(<?php echo $usuario->getId(); ?>)">Editar</button>
                     </td>
                 </tr>
         <?php endforeach; ?>
     </tbody>
     </table>
-    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div id="edit-form-container" style="display: none;"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 function confirmDelete(userId) {
     Swal.fire({
@@ -144,24 +147,24 @@ function confirmEnabled(userId) {
 
 <script>
 
-        $(document).ready(function() {
-            $(".btn-edit").click(function() {
-                var userId = $(this).data("id");
-
-                $.ajax({
-                    url: "views/users/edit_users.php",
-                    type: "GET",
-                    data: { id: userId },
-                    success: function(response) {
-                        $("#edit-form-container").html(response).slideDown();
-                        event.preventDefault();
-                    },
-                    error: function() {
-                        alert("Error al cargar el formulario de edición.");
-                    }
-                });
-            });
+    function openEditModal(userId) {
+        // Realiza una solicitud AJAX para obtener el formulario de edición
+        $.ajax({
+            url: "views/users/edit_users.php", // Ruta al archivo de edición de usuario
+            type: "GET",
+            data: { id: userId }, // Envía el ID del usuario
+            success: function(response) {
+                // Muestra el formulario de edición en el contenedor
+                $("#edit-form-container").html(response).slideDown();
+                // Abre el modal
+                $("#editarUsuarioModal").modal("show");
+            },
+            error: function() {
+                alert("Error al cargar el formulario de edición.");
+            }
         });
-    </script>
+    }
+
+</script>
 </body>
 </html>
