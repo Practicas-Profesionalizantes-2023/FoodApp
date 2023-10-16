@@ -20,9 +20,9 @@ class Crud_menus extends SessionController {
 
             $menuModel = new MenuModel();
         if ($menuModel->delete($id)) {
-            error_log("Enviando usuario a eliminar -----eliminando------ " . $id);
+            error_log("Enviando menu a eliminar -----eliminando------ " . $id);
         } else {
-            error_log("Error al eliminar el usuario con ID " . $id);
+            error_log("Error al eliminar el menu con ID " . $id);
         }
             
         }
@@ -32,8 +32,8 @@ class Crud_menus extends SessionController {
     public function createMenu(){
         if($this->existPOST(['name', 'detail', 'price','category'])){
 
-            $name = $_POST["name"];
-            $detail = $_POST["detail"];
+            $name = strtolower($_POST["name"]);
+            $detail = strtolower($_POST["detail"]);
             $price = $_POST["price"];
             $category = $_POST["category"];
 
@@ -52,15 +52,51 @@ class Crud_menus extends SessionController {
     }
 
 
+
+
+    public function editMenu(){
+        if($this->existPOST(['id','name','category', 'detail', 'price'])){
+            $id = $_POST["id"];
+            error_log($id);
+            $name = strtolower($_POST["name"]);
+            error_log($name);
+            // Verificar si el nuevo nombre de menu ya existe en la base de datos
+            $menuModel = new MenuModel();
+            if ($menuModel->nameExists($id, $name)) {
+                echo "El nombre de menu ya está en uso. Por favor, elige otro nombre de menu.";
+                error_log("El nombre de menu ya esta en uso");
+            } else {
+                    // Resto de tus variables
+                    $category = $_POST["category"];
+                    error_log($name);
+                    $detail = strtolower($_POST["detail"]);
+                    error_log($surname);
+                    $price = $_POST["price"];
+
+                $menuModel = new MenuModel();
+                if ($menuModel->update($id, $name, $category, $detail, $price)) {
+                    echo "menu actualizando.";
+                } else {
+                    echo "Error al actualizar el menu.";
+                }
+            }
+        }
+    }
+
+
+
+
+
+////////////////////////// CATEGORIAS ////////////////////////
     public function createCat(){
         if($this->existPOST(['nameCat'])){
 
-            $nameCat = $_POST["nameCat"];
+            $nameCat = strtolower($_POST["nameCat"]);
 
             $menuModel = new MenuModel();
-            if ($menuModel->nameExists(0, $name)) {
-                echo "El nombre de menu ya está en uso. Por favor, elige otro nombre de menu.";
-                error_log("El nombre de menu ya esta en uso");
+            if ($menuModel->nameCatExists(0, $nameCat)) {
+                echo "El nombre de la categoria ya está en uso. Por favor, elige otro nombre de categoria.";
+                error_log("El nombre de categoria ya esta en uso");
             } else {
 
                 if ($menuModel->createCat($nameCat)) {
@@ -75,35 +111,49 @@ class Crud_menus extends SessionController {
 
 
 
+    public function deleteCat(){
+        if($this->existPOST(['id'])){
+            $id = $this->getPOST('id');
 
-    public function editMenu(){
-        if($this->existPOST(['id','name','category', 'detail', 'price'])){
+
+            $menuModel = new MenuModel();
+        if ($menuModel->deleteCat($id)) {
+            error_log("Enviando categoria a eliminar -----eliminando------ " . $id);
+        } else {
+            error_log("Error al eliminar la categoria con ID " . $id);
+        }
+            
+        }
+    }
+
+
+
+
+    public function editCat(){
+        if($this->existPOST(['id','name'])){
             $id = $_POST["id"];
             error_log($id);
-            $name = $_POST["name"];
+            $name = strtolower($_POST["name"]);
             error_log($name);
-            // Verificar si el nuevo nombre de menu ya existe en la base de datos
+            // Verificar si el nuevo nombre de categoria ya existe en la base de datos
             $menuModel = new MenuModel();
-            if ($menuModel->nameExists($id, $name)) {
-                echo "El nombre de menu ya está en uso. Por favor, elige otro nombre de menu.";
-                error_log("El nombre de menu ya esta en uso");
+            if ($menuModel->nameCatExists($id, $name)) {
+                echo "El nombre la categoria ya está en uso. Por favor, elige otro nombre de categoria.";
+                error_log("El nombre de categoria ya esta en uso");
             } else {
-                    // Resto de tus variables
-                    $category = $_POST["category"];
-                    error_log($name);
-                    $detail = $_POST["detail"];
-                    error_log($surname);
-                    $price = $_POST["price"];
 
                 $menuModel = new MenuModel();
-                if ($menuModel->update($id, $name, $category, $detail, $price)) {
-                    echo "menu actualizando.";
+                if ($menuModel->updateCat($id, $name)) {
+                    echo "categoria actualizando.";
                 } else {
-                    echo "Error al actualizar el menu.";
+                    echo "Error al actualizar la categoria.";
                 }
             }
         }
     }
+
+
+
 
 
 
