@@ -17,7 +17,7 @@ class Crud_users extends SessionController {
         if($this->existPOST(['id'])){
             $deleted = 0;
             $idUsuarioAEliminar = $this->getPOST('id');
-            error_log('dolete--> id: '. $idUsuarioAEliminar);
+            error_log('delete--> id: '. $idUsuarioAEliminar);
             $userModel = new UserModel();
 
         // Intenta eliminar el usuario con la función delete
@@ -60,7 +60,7 @@ class Crud_users extends SessionController {
         'bwStreet','bwStreetTwo', 'altura', 'cel','password', 'email', 'rol'])){
             $id = $_POST["id"];
             error_log($id);
-            $username = $_POST["nombre"];
+            $username = strtolower($_POST["nombre"]);
             error_log($username);
             $dni = $_POST["dni"];
             error_log($dni);
@@ -71,20 +71,20 @@ class Crud_users extends SessionController {
                 error_log("El nombre de usuario ya esta en uso");
             } else {
                 // Resto de tus variables
-                $name = $_POST["name"];
+                $name = strtolower($_POST["name"]);
                 error_log($name);
-                $surname = $_POST["surname"];
+                $surname = strtolower($_POST["surname"]);
                 error_log($surname);
                 $gender = $_POST["gender"];
-                $province = $_POST["province"];
-                $localidad = $_POST["localidad"];
-                $street = $_POST["street"];
-                $bwStreet = $_POST["bwStreet"];
-                $bwStreetTwo = $_POST["bwStreetTwo"];
+                $province = strtolower($_POST["province"]);
+                $localidad = strtolower($_POST["localidad"]);
+                $street = strtolower($_POST["street"]);
+                $bwStreet = strtolower($_POST["bwStreet"]);
+                $bwStreetTwo = strtolower($_POST["bwStreetTwo"]);
                 $altura = $_POST["altura"];
                 $cel = $_POST["cel"];
                 $password = $_POST["password"];
-                $email = $_POST["email"];
+                $email = strtolower($_POST["email"]);
                 $rol = $_POST["rol"];
 
             $userModel = new UserModel();
@@ -100,19 +100,19 @@ class Crud_users extends SessionController {
     public function createUser(){
         if($this->existPOST(['username', 'name', 'surname','dni', 'gender', 'province', 'localidad', 'street',
         'bwStreet','bwStreetTwo', 'altura', 'cel', 'email', 'rol','password'])){
-            $username = $_POST["username"];
-            $name = $_POST["name"];
-            $surname = $_POST["surname"];
+            $username = strtolower($_POST["username"]);
+            $name = strtolower($_POST["name"]);
+            $surname = strtolower($_POST["surname"]);
             $dni = $_POST["dni"];
             $gender = $_POST["gender"];
-            $province = $_POST["province"];
-            $localidad = $_POST["localidad"];
-            $street = $_POST["street"];
-            $bwStreet = $_POST["bwStreet"];
-            $bwStreetTwo = $_POST["bwStreetTwo"];
+            $province = strtolower($_POST["province"]);
+            $localidad = strtolower($_POST["localidad"]);
+            $street = strtolower($_POST["street"]);
+            $bwStreet = strtolower($_POST["bwStreet"]);
+            $bwStreetTwo = strtolower($_POST["bwStreetTwo"]);
             $altura = $_POST["altura"];
             $cel = $_POST["cel"];
-            $email = $_POST["email"];
+            $email = strtolower($_POST["email"]);
             $rol = $_POST["rol"];
             $password = $_POST["password"];
 
