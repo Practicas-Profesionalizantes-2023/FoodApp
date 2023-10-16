@@ -119,6 +119,21 @@ class MenuModel extends Model{
 
 
 
+    public function nameCatExists($id, $name) {
+        try {
+            $query = $this->prepare("SELECT COUNT(*) as count FROM categorias WHERE (categoria_name = :name) AND id_categoria != :id");
+            $query->execute([':name' => $name, ':id' => $id]);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result['count'] > 0;
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e);
+            return false;  
+        }
+    }
+
+
+
+
 
     public function get($id){
         try{
@@ -151,6 +166,33 @@ class MenuModel extends Model{
 
 
 
+    public function getCat($id){
+        try{
+            $query = $this->prepare('SELECT categorias.*, categorias.categoria_name
+                                        FROM categorias
+                                        WHERE categorias.id_categoria = :id;');
+            $query->execute([
+                'id' => $id,
+            ]);
+
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+            if ($user === false) {
+                return null; // La categoria no fue encontrada
+            }
+            $this->setIdCat($user['id_categoria']);	
+            $this->setCatName($user['categoria_name']);
+
+            return $this;
+        }catch(PDOException $e){
+            error_log('MENUMODEL::getIdCat-> PDOException '.$e);
+        }
+    }
+
+
+
+
+
+
     public function delete($id){
         try{
             $query = $this->prepare('DELETE FROM menu WHERE id_menu = :id');
@@ -163,6 +205,24 @@ class MenuModel extends Model{
             return false;
         }
     }
+
+
+
+
+
+    public function deleteCat($id){
+        try{
+            $query = $this->prepare('DELETE FROM categorias WHERE id_categoria = :id');
+            $query->execute([
+                'id' => $id,
+            ]);
+            return true;
+        }catch(PDOException $e){
+            error_log('MENUMODEL::deleteCat-> PDOException '.$e);
+            return false;
+        }
+    }
+
 
 
 
@@ -214,6 +274,7 @@ class MenuModel extends Model{
             $query->execute([
                 'nameCat' => $nameCat,
             ]);
+            $lastInsertId = $pdo->lastInsertId();  // Obtén el último ID insertado
 
             // Confirmar la transacción
             $pdo->commit();
@@ -250,6 +311,30 @@ class MenuModel extends Model{
             return true;
         }catch(PDOException $e){
             error_log('MENUMODEL::update-> PDOException '.$e);
+
+            return false;
+        }
+    }
+
+
+
+
+
+
+    public function updateCat($id, $name){
+        try{
+            
+            $query = $this->prepare('UPDATE categorias SET categoria_name = :name WHERE id_categoria = :id');
+            
+            $query->execute([
+                'id' => $id,
+                'name' => $name,
+            ]);
+            
+
+            return true;
+        }catch(PDOException $e){
+            error_log('MENUMODEL::updateCat-> PDOException '.$e);
 
             return false;
         }
