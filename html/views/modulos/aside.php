@@ -122,6 +122,48 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-store-alt"></i>
+                         <p>Menu<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/crud_menus.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Menu</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/create_menu.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Menu</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="nav-icon fas fa-store-alt"></i>
+                         <p>Categorias<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/crud_categorys.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Categoria</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/create_category.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Categoria</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                  <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="nav-icon fas fa-store-alt"></i>
                          <p>Empleados<i class="right fas fa-angle-left"></i></p>
                      </a>
                      <ul class="nav nav-treeview">
