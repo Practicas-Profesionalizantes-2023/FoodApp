@@ -114,21 +114,33 @@ $rols = $userModel->getAllRole();
         var usernameError = document.getElementById('username-error');
         var dniError = document.getElementById('dni-error');
 
-        if (existingUsernames.includes(username) || existingDnis.includes(dni)) {
+        if (existingUsernames.includes(username)) {
 
             usernameError.innerText = 'El nombre de usuario ya podria estar en uso.';
-            dniError.innerText = 'El dni ya podria estar en uso.';
          
             Swal.fire({
                     icon: 'error',
-                    title: 'USUARIO/DNI YA EXISTE',
-                    text: 'Por favor ingrese otro usuario/dni'
+                    title: 'USUARIO YA EXISTE',
+                    text: 'Por favor ingrese otro usuario'
                 }).then(() => {
           
                 });
             
 
-        } else {
+        } else if (existingDnis.includes(dni)) {
+
+            dniError.innerText = 'El dni ya podria estar en uso.';
+
+            Swal.fire({
+                    icon: 'error',
+                    title: 'DNI YA EXISTE',
+                    text: 'Por favor ingrese otro dni'
+                }).then(() => {
+
+                });
+
+
+            } else {
 
 
 
