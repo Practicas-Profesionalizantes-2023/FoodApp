@@ -117,13 +117,20 @@ class Crud_users extends SessionController {
             $password = $_POST["password"];
 
             $userModel = new UserModel();
-            if ($userModel->createUser($username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-            $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $password)) {
-                echo "Usuario creado exitosamente.";
-            } else {
-                echo "Error al crear el usuario.";
-            }
+            if ($userModel->usernameExists(0, $username,$dni)) {
+                echo "El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario.";
+                error_log("El nombre de usuario ya esta en uso");
+            } else{
 
+            
+            
+                if ($userModel->createUser($username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
+                $bwStreet, $bwStreetTwo, $altura, $cel, $email, $rol, $password)) {
+                    echo "Usuario creado exitosamente.";
+                } else {
+                    echo "Error al crear el usuario.";
+                }
+            }
         }
     }
 
