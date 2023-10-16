@@ -222,7 +222,26 @@ class UserModel extends Model{
         }
     }
 
-    
+
+
+
+    public function enabled($id, $enabled) {
+        try {
+            $query = $this->prepare('UPDATE employees SET deleted = :deleted WHERE id_employee = :id');
+            $query->execute([
+                'deleted' => $enabled,
+                'id' => $id
+            ]);
+            return true;
+        } catch(PDOException $e) {
+            error_log('USERMODEL::enabled-> PDOException '.$e);
+            return false;
+        }
+    }
+
+
+
+
     public function usernameExists($id, $username, $dni) {
         try {
             $query = $this->prepare("SELECT COUNT(*) as count FROM employees WHERE (username = :username OR dni = :dni) AND id_employee != :id");
@@ -238,7 +257,7 @@ class UserModel extends Model{
     
 
     public function update($id, $username, $name, $surname, $dni, $gender, $province, $localidad, $street, 
-                            $bwStreet, $bwStreetTwo, $altura, $cel, $password, $email, $role, $state){
+                            $bwStreet, $bwStreetTwo, $altura, $cel, $password, $email, $role){
         try{
             $cont = 0; // Define $cont como 0 inicialmente
 
@@ -255,7 +274,7 @@ class UserModel extends Model{
             SET username = :username, name = :name, last_name = :surname,
             dni = :dni, id_gender = :gender, provincia = :province, localidad = :localidad, 
             calle = :street, entreCalle1 = :bwStreet, entreCalle2 = :bwStreetTwo, 
-            altura = :altura, cel = :cel, email = :email, id_rol = :id_rol, state = :state ' . ($cont == 1 ? ', password = :password ' : '') . 'WHERE id_employee = :id');
+            altura = :altura, cel = :cel, email = :email, id_rol = :id_rol ' . ($cont == 1 ? ', password = :password ' : '') . 'WHERE id_employee = :id');
             
             $params = [
                 'id' => $id,
@@ -273,7 +292,6 @@ class UserModel extends Model{
                 'cel' => $cel,
                 'email' => $email,
                 'id_rol' => $role,
-                'state' => $state,
             ];
             
             if ($cont == 1) {
