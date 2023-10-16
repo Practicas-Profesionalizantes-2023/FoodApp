@@ -38,12 +38,16 @@ class Crud_menus extends SessionController {
             $category = $_POST["category"];
 
             $menuModel = new MenuModel();
-            if ($menuModel->createMenu($name, $detail, $price, $category)) {
-                error_log("Menu esta siendo enviado ------------creando-----------.");
+            if ($menuModel->nameExists(0, $name)) {
+                echo "El nombre de menu ya está en uso. Por favor, elige otro nombre de menu.";
+                error_log("El nombre de menu ya esta en uso");
             } else {
-                error_log("Error al intentar enviar el menu.");
+                if ($menuModel->createMenu($name, $detail, $price, $category)) {
+                    error_log("Menu esta siendo enviado ------------creando-----------.");
+                } else {
+                    error_log("Error al intentar enviar el menu.");
+                }
             }
-
         }
     }
 
@@ -54,12 +58,17 @@ class Crud_menus extends SessionController {
             $nameCat = $_POST["nameCat"];
 
             $menuModel = new MenuModel();
-            if ($menuModel->createCat($nameCat)) {
-                error_log("Categoria se esta enviado ------------creando-----------.");
+            if ($menuModel->nameExists(0, $name)) {
+                echo "El nombre de menu ya está en uso. Por favor, elige otro nombre de menu.";
+                error_log("El nombre de menu ya esta en uso");
             } else {
-                error_log("Error al intentar enviar la categoria.");
-            }
 
+                if ($menuModel->createCat($nameCat)) {
+                    error_log("Categoria se esta enviado ------------creando-----------.");
+                } else {
+                    error_log("Error al intentar enviar la categoria.");
+                }
+            }
         }
     }
 
@@ -70,15 +79,6 @@ class Crud_menus extends SessionController {
     public function editMenu(){
         if($this->existPOST(['id','name','category', 'detail', 'price'])){
             $id = $_POST["id"];
-            error_log($id);
-            error_log($id);
-            error_log($id);
-            error_log($id);
-            error_log($id);
-            error_log($id);
-            error_log($id);
-            error_log($id);
-            error_log($id);
             error_log($id);
             $name = $_POST["name"];
             error_log($name);
