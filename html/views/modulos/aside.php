@@ -20,7 +20,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
      <!-- Brand Logo -->
      <a href="index.php" class="brand-link">
          <img src="views/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-         <span class="brand-text font-weight-light">APP FOOD</span>
+         <span class="brand-text  font-weight-bold">APP FOOD</span>
      </a>
 
     
@@ -156,6 +156,27 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/create_category.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Agregar Categoria</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                  <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="nav-icon fas fa-store-alt"></i>
+                         <p>Empleados<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/users/crud_users.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Empleados</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/users/create_user.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Empleados</p>
                              </a>
                          </li>
                      </ul>
