@@ -50,17 +50,17 @@
 
                                 <label class="col-form-label" for="iptCodigoVenta">
                                     <i class="fas fa-barcode fs-6"></i>
-                                    <span class="small">Productos</span>
+                                    <span class="small">Menus</span>
                                 </label>
 
-                                <input type="text" class="form-control form-control-sm" id="iptCodigoVenta" placeholder="Ingrese el código de barras o el nombre del producto">
+                                <input type="text" class="form-control form-control-sm" id="iptCodigoVenta" placeholder="Ingrese nombre del menu a buscar">
                             </div>
 
                         </div>
 
                         <!-- ETIQUETA QUE MUESTRA LA SUMA TOTAL DE LOS PRODUCTOS AGREGADOS AL LISTADO -->
                         <div class="col-md-7 mb-3 rounded-3" style="background-color: gray;color: white;text-align:center;border:1px solid gray;">
-                            <h2 class="fw-bold m-0">S/ <span class="fw-bold" id="totalVenta">0.00</span></h2>
+                            <h2 class="fw-bold m-0">$ <span class="fw-bold" id="totalVenta">0.00</span></h2>
                         </div>
 
                         <!-- BOTONES PARA VACIAR LISTADO Y COMPLETAR LA VENTA -->
@@ -80,17 +80,17 @@
                                 <thead class="bg-gray text-left fs-6">
                                     <tr>
                                         <th>Item</th>
-                                        <th>Codigo</th>
-                                        <th>Id Categoria</th>
+                                        <th>Menuw</th>
+                                        <!-- <th>Id Categoria</th> -->
+                                        <th>Menu</th>
                                         <th>Categoria</th>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio</th>
+                                        <th>precio</th>
+                                        <th>cantidad</th>
                                         <th>Total</th>
                                         <th class="text-center">Opciones</th>
-                                        <th>Aplica Peso</th>
+                                        <!-- <th>Aplica Peso</th>
                                         <th>Precio Por Mayor</th>
-                                        <th>Precio Oferta</th>
+                                        <th>Precio Oferta</th> -->
                                     </tr>
                                 </thead>
                                 <tbody class="small text-left fs-6">
@@ -115,26 +115,6 @@
 
                 <div class="card-body p-2">
 
-                    <!-- SELECCIONAR TIPO DE DOCUMENTO -->
-                    <div class="form-group mb-2">
-
-                        <label class="col-form-label p-0" for="selCategoriaReg">
-                            <i class="fas fa-file-alt fs-6"></i>
-                            <span class="small">Documento</span><span class="text-danger">*</span>
-                        </label>
-
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selDocumentoVenta" disabled>
-                            <option value="0">Seleccione Documento</option>
-                            <option value="1" selected="true">Boleta</option>
-                            <option value="2">Factura</option>
-                            <option value="3">Ticket</option>
-                        </select>
-
-                        <span id="validate_categoria" class="text-danger small fst-italic" style="display:none">
-                            Debe Seleccione documento
-                        </span>
-
-                    </div>
 
                     <!-- SELECCIONAR TIPO DE PAGO -->
                     <div class="form-group mb-2">
@@ -159,7 +139,7 @@
                     </div>
 
                     <!-- SERIE Y NRO DE BOLETA -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
 
                         <div class="row">
 
@@ -180,7 +160,7 @@
 
                         </div>
 
-                    </div>
+                    </div> -->
 
                     <!-- INPUT DE EFECTIVO ENTREGADO -->
                     <div class="form-group">
@@ -200,11 +180,11 @@
                     <div class="row mt-2">
 
                         <div class="col-12">
-                            <h6 class="text-start fw-bold">Monto Efectivo: S./ <span id="EfectivoEntregado">0.00</span></h6>
+                            <h6 class="text-start fw-bold">Monto Efectivo: $ <span id="EfectivoEntregado">0.00</span></h6>
                         </div>
 
                         <div class="col-12">
-                            <h6 class="text-start text-danger fw-bold">Vuelto: S./ <span id="Vuelto">0.00</span>
+                            <h6 class="text-start text-danger fw-bold">Vuelto: $ <span id="Vuelto">0.00</span>
                             </h6>
                         </div>
 
@@ -213,46 +193,46 @@
                     <!-- MOSTRAR EL SUBTOTAL, IGV Y TOTAL DE LA VENTA -->
                     <div class="row fw-bold">
 
-                        <div class="col-md-7">
+                        <!-- <div class="col-md-7">
                             <span>OPE. GRAVADAS</span>
                         </div>
                         <div class="col-md-5 text-right">
-                            S./ <span class="" id="">0.00</span>
+                            $ <span class="" id="">0.00</span>
                         </div>
 
                         <div class="col-md-7">
                             <span>OPE. INAFECTAS</span>
                         </div>
                         <div class="col-md-5 text-right">
-                            S./ <span class="" id="">0.00</span>
+                            $ <span class="" id="">0.00</span>
                         </div>
 
                         <div class="col-md-7">
                             <span>OPE. EXONERADAS</span>
                         </div>
                         <div class="col-md-5 text-right">
-                            S./ <span class="" id="">0.00</span>
+                            $ <span class="" id="">0.00</span>
                         </div>
 
                         <div class="col-md-7">
                             <span>IGV (18%)</span>
                         </div>
                         <div class="col-md-5 text-right">
-                            S./ <span class="" id="boleta_igv">0.00</span>
-                        </div>
+                            $ <span class="" id="boleta_igv">0.00</span>
+                        </div> -->
 
                         <div class="col-md-7">
                             <span>SUBTOTAL</span>
                         </div>
                         <div class="col-md-5 text-right">
-                            S./ <span class="" id="boleta_subtotal">0.00</span>
+                            $ <span class="" id="boleta_subtotal">0.00</span>
                         </div>
 
                         <div class="col-md-7">
                             <span>TOTAL</span>
                         </div>
                         <div class="col-md-5 text-right">
-                            S./ <span class="" id="boleta_total">0.00</span>
+                            $ <span class="" id="boleta_total">0.00</span>
                         </div>
                     </div>
 
@@ -296,26 +276,27 @@ $(document).ready(function() {
     INICIALIZAR LA TABLA DE VENTAS
     ======================================================================================*/
     table = $('#lstProductosVenta').DataTable({
-        "columns": [{
+        "columns": [
+            {
                 "data": "id"
             },
             {
-                "data": "codigo_producto"
+                "data": "id_menu"
             },
             {
-                "data": "id_categoria"
+                "data": "name_menu"
             },
             {
-                "data": "nombre_categoria"
+                "data": "categoria_name"
             },
             {
-                "data": "descripcion_producto"
+                "data": "detalle"
             },
             {
                 "data": "cantidad"
             },
             {
-                "data": "precio_venta_producto"
+                "data": "precio"
             },
             {
                 "data": "total"
@@ -323,66 +304,70 @@ $(document).ready(function() {
             {
                 "data": "acciones"
             },
-            {
-                "data": "aplica_peso"
-            },
-            {
-                "data": "precio_mayor_producto"
-            },
-            {
-                "data": "precio_oferta_producto"
-            }
+            // {
+            //     "data": "aplica_peso"
+            // },
+            // {
+            //     "data": "precio_mayor_producto"
+            // },
+            // {
+            //     "data": "precio_oferta_producto"
+            // }
         ],
         columnDefs: [{
                 targets: 0,
                 visible: false
             },
             {
-                targets: 3,
+                targets: 1,
                 visible: false
             },
             {
-                targets: 2,
+                targets: 4,
                 visible: false
             },
             {
-                targets: 6,
-                orderable: false
-            },
-            {
-                targets: 9,
+                targets: 7,
                 visible: false
             },
-            {
-                targets: 10,
-                visible: false
-            },
-            {
-                targets: 11,
-                visible: false
-            }
+            // {
+            //     targets: 9,
+            //     visible: false
+            // },
+            // {
+            //     targets: 10,
+            //     visible: false
+            // },
+            // {
+            //     targets: 11,
+            //     visible: false
+            // }
         ],
         "order": [
             [0, 'desc']
         ],
         "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+            "url": "//cdn.datatables.net/plug-in$1.10.20/i18n/Spanish.json"
         }
     });
 
     /* ======================================================================================
     TRAER LISTADO DE PRODUCTOS PARA INPUT DE AUTOCOMPLETADO
     ======================================================================================*/
+    
     $.ajax({
         async: false,
-        url: "ajax/productos.ajax.php",
+        url: "ajax/salesajax.php",
         method: "POST",
         data: {
-            'accion': 6
+            'action': 6
         },
         dataType: 'json',
+
+        // console.log(respuesta);
         success: function(respuesta) {
 
+            console.log(respuesta);
             for (let i = 0; i < respuesta.length; i++) {
                 items.push(respuesta[i]['descripcion_producto'])
             }
@@ -402,7 +387,11 @@ $(document).ready(function() {
                 }
             })
 
-        }
+        },error: function(jqXHR, textStatus, errorThrown) {
+                // Maneja el error aquí
+                console.log("Error en la solicitud AJAX: " + textStatus, errorThrown);
+                // alert("Error al cargar el formulario de edición.");
+            }
     });
 
 
@@ -430,27 +419,27 @@ $(document).ready(function() {
 
         var idx = table.row($(this).parents('tr')).index(); // Recuperar el Indice de la Fila
 
-        var codigo_producto = data['codigo_producto'];
+        var codigo_producto = data['id_menu'];
         var cantidad = data['cantidad'];
 
         $.ajax({
             async: false,
-            url: "ajax/productos.ajax.php",
+            url: "ajax/salesajax.php",
             method: "POST",
             data: {
-                'accion': 8,
-                'codigo_producto': codigo_producto,
-                'cantidad_a_comprar': cantidad
+                'action': 8,
+                'id_menu': codigo_producto,
+                'cantidad': cantidad
             },
 
             dataType: 'json',
             success: function(respuesta) {
-
+                console.log(respuesta);
                 if (parseInt(respuesta['existe']) == 0) {
 
                     Toast.fire({
                         icon: 'error',
-                        title: ' El producto ' + data['descripcion_producto'] + ' ya no tiene stock'
+                        title: ' El producto ' + data['name_menu'] + ' ya no tiene stock'
                     })
 
                     $("#iptCodigoVenta").val("");
@@ -462,8 +451,8 @@ $(document).ready(function() {
 
                     table.cell(idx, 5).data(cantidad + ' Und(s)').draw();
 
-                    NuevoPrecio = (parseInt(data['cantidad']) * data['precio_venta_producto'].replace("S./ ", "")).toFixed(2);
-                    NuevoPrecio = "S./ " + NuevoPrecio;
+                    NuevoPrecio = (parseInt(data['cantidad']) * data['precio'].replace("$ ", "")).toFixed(2);
+                    NuevoPrecio = "$ " + NuevoPrecio;
 
                     table.cell(idx, 7).data(NuevoPrecio).draw();
 
@@ -489,8 +478,8 @@ $(document).ready(function() {
 
             table.cell(idx, 5).data(cantidad + ' Und(s)').draw();
 
-            NuevoPrecio = (parseInt(data['cantidad']) * data['precio_venta_producto'].replace("S./ ", "")).toFixed(2);
-            NuevoPrecio = "S./ " + NuevoPrecio;
+            NuevoPrecio = (parseInt(data['cantidad']) * data['precio'].replace("$ ", "")).toFixed(2);
+            NuevoPrecio = "$ " + NuevoPrecio;
 
             table.cell(idx, 7).data(NuevoPrecio).draw();
 
@@ -523,8 +512,8 @@ $(document).ready(function() {
 
                 table.cell(idx, 5).data(cantidad + ' Kg(s)').draw();
 
-                NuevoPrecio = ((parseFloat(data['cantidad']) * data['precio_venta_producto'].replace("S./ ", "")).toFixed(2));
-                NuevoPrecio = "S./ " + NuevoPrecio;
+                NuevoPrecio = ((parseFloat(data['cantidad']) * data['precio'].replace("$ ", "")).toFixed(2));
+                NuevoPrecio = "$ " + NuevoPrecio;
 
                 table.cell(idx, 7).data(NuevoPrecio).draw();
 
@@ -544,7 +533,7 @@ $(document).ready(function() {
 
         codigo_producto = $(this).attr("codigo");
         console.log("🚀 ~ file: ventas.php:527 ~ $ ~ codigo_producto", codigo_producto)
-        precio_venta = parseFloat($(this).attr("precio").replaceAll("S./ ", "")).toFixed(2);
+        precio_venta = parseFloat($(this).attr("precio").replaceAll("$ ", "")).toFixed(2);
 
         recalcularMontos(codigo_producto, precio_venta);
     });
@@ -582,23 +571,23 @@ $(document).ready(function() {
 
             var data = row.data();
 
-            if (data['codigo_producto'] == cod_producto_actual) {
+            if (data['id_menu'] == cod_producto_actual) {
 
                 $.ajax({
                     async: false,
-                    url: "ajax/productos.ajax.php",
+                    url: "ajax/salesajax.php",
                     method: "POST",
                     data: {
-                        'accion': 8,
-                        'codigo_producto': cod_producto_actual,
-                        'cantidad_a_comprar': cantidad_actual
+                        'action': 8,
+                        'id_menu': cod_producto_actual,
+                        'cantidad': cantidad_actual
                     },
                     dataType: 'json',
                     success: function(respuesta) {
 
                         if (parseInt(respuesta['existe']) == 0) {
 
-                            mensajeToast('error', ' El producto ' + data['descripcion_producto'] + ' ya no tiene stock');
+                            mensajeToast('error', ' El producto ' + data['name'] + ' ya no tiene stock');
 
                             table.cell(index, 5).data('<input type="text" style="width:80px;" codigoProducto = "' + cod_producto_actual + '" class="form-control text-center iptCantidad m-0 p-0" value="1">').draw();
 
@@ -606,8 +595,8 @@ $(document).ready(function() {
                             $("#iptCodigoVenta").focus();
 
                             // ACTUALIZAR EL NUEVO PRECIO DEL ITEM DEL LISTADO DE VENTA
-                            NuevoPrecio = (parseFloat(1) * data['precio_venta_producto'].replaceAll("S./ ", "")).toFixed(2);
-                            NuevoPrecio = "S./ " + NuevoPrecio;
+                            NuevoPrecio = (parseFloat(1) * data['precio'].replaceAll("$", "")).toFixed(2);
+                            NuevoPrecio = "$ " + NuevoPrecio;
                             table.cell(index, 7).data(NuevoPrecio).draw();
 
                             // RECALCULAMOS TOTALES
@@ -620,8 +609,8 @@ $(document).ready(function() {
 
 
                             // ACTUALIZAR EL NUEVO PRECIO DEL ITEM DEL LISTADO DE VENTA
-                            NuevoPrecio = (parseFloat(cantidad_actual) * data['precio_venta_producto'].replaceAll("S./ ", "")).toFixed(2);
-                            NuevoPrecio = "S./ " + NuevoPrecio;
+                            NuevoPrecio = (parseFloat(cantidad_actual) * data['precio'].replaceAll("$ ", "")).toFixed(2);
+                            NuevoPrecio = "$ " + NuevoPrecio;
                             table.cell(index, 7).data(NuevoPrecio).draw();
 
                             // RECALCULAMOS TOTALES
@@ -654,7 +643,7 @@ $(document).ready(function() {
 
             $("#EfectivoEntregado").html(totalVenta);
 
-            var EfectivoRecibido = parseFloat($("#EfectivoEntregado").html().replace("S./ ", ""));
+            var EfectivoRecibido = parseFloat($("#EfectivoEntregado").html().replace("$ ", ""));
 
             vuelto = parseFloat(totalVenta) - parseFloat(EfectivoRecibido);
 
@@ -693,10 +682,10 @@ function CargarNroBoleta() {
 
     $.ajax({
         async: false,
-        url: "ajax/ventas.ajax.php",
+        url: "ajax/salesajax.php",
         method: "POST",
         data: {
-            'accion': 1
+            'action': 1
         },
         dataType: 'json',
         success: function(respuesta) {
@@ -770,7 +759,7 @@ function recalcularMontos(codigo_producto, precio_venta) {
         var data = row.data();
 
 
-        if (data['codigo_producto'] == codigo_producto) {
+        if (data['id_menu'] == codigo_producto) {
 
             // AUMENTAR EN 1 EL VALOR DE LA CANTIDAD
             table.cell(index, 6).data("S./ " + parseFloat(precio_venta).toFixed(2)).draw();
@@ -806,7 +795,7 @@ function recalcularTotales() {
         var row = table.row(index);
         var data = row.data();
 
-        TotalVenta = parseFloat(TotalVenta) + parseFloat(data['total'].replace("S./ ", ""));
+        TotalVenta = parseFloat(TotalVenta) + parseFloat(data['total'].replace("$ ", ""));
 
     });
 
@@ -814,13 +803,13 @@ function recalcularTotales() {
     $("#totalVenta").html(TotalVenta.toFixed(2));
 
     var totalVenta = $("#totalVenta").html();
-    var igv = parseFloat(totalVenta) * 0.18
-    var subtotal = parseFloat(totalVenta) - parseFloat(igv);
+    // var igv = parseFloat(totalVenta) * 0.18
+    // var subtotal = parseFloat(totalVenta) - parseFloat(igv);
 
     $("#totalVentaRegistrar").html(totalVenta);
 
-    $("#boleta_subtotal").html(parseFloat(subtotal).toFixed(2));
-    $("#boleta_igv").html(parseFloat(igv).toFixed(2));
+    // $("#boleta_subtotal").html(parseFloat(subtotal).toFixed(2));
+    // $("#boleta_igv").html(parseFloat(igv).toFixed(2));
     $("#boleta_total").html(parseFloat(totalVenta).toFixed(2));
 
     //limpiamos el input de efectivo exacto; desmarcamos el check de efectivo exacto
@@ -842,6 +831,7 @@ function CargarProductos(producto = "") {
 
     if (producto != "") {
         var codigo_producto = producto;
+        
 
     } else {
         var codigo_producto = $("#iptCodigoVenta").val();
@@ -862,28 +852,29 @@ function CargarProductos(producto = "") {
         var row = table.row(index);
         var data = row.data();
         console.log("🚀 ~ file: ventas.php:829 ~ table.rows ~ data", $.parseHTML(data['cantidad'])[0]['value'])
-
-        if (codigo_producto == data['codigo_producto']) {
+        
+        if (codigo_producto == data['id_menu']) {
 
             producto_repetido = 1;
 
+            
             cantidad_a_comprar = parseFloat($.parseHTML(data['cantidad'])[0]['value']) + 1;
-
+            console.log('cantidad aqui: '+cantidad_a_comprar);
             $.ajax({
                 async: false,
-                url: "ajax/productos.ajax.php",
+                url: "ajax/salesajax.php",
                 method: "POST",
                 data: {
-                    'accion': 8,
-                    'codigo_producto': codigo_producto,
-                    'cantidad_a_comprar': cantidad_a_comprar
+                    'action': 8,
+                    'id_menu': codigo_producto,
+                    'cantidad': cantidad_a_comprar
                 },
                 dataType: 'json',
                 success: function(respuesta) {
-
+                    console.log(respuesta);
                     if (parseInt(respuesta['existe']) == 0) {
 
-                        mensajeToast('error', ' El producto ' + data['descripcion_producto'] + ' ya no tiene stock');
+                        mensajeToast('error', ' El producto ' + data['name_menu'] + ' ya no tiene stock');
 
                         $("#iptCodigoVenta").val("");
                         $("#iptCodigoVenta").focus();
@@ -895,8 +886,8 @@ function CargarProductos(producto = "") {
 
 
                         // ACTUALIZAR EL NUEVO PRECIO DEL ITEM DEL LISTADO DE VENTA
-                        NuevoPrecio = (parseFloat(cantidad_a_comprar) * data['precio_venta_producto'].replaceAll("S./ ", "")).toFixed(2);
-                        NuevoPrecio = "S./ " + NuevoPrecio;
+                        NuevoPrecio = (parseFloat(cantidad_a_comprar) * data['precio'].replaceAll("$ ", "")).toFixed(2);
+                        NuevoPrecio = "$ " + NuevoPrecio;
                         table.cell(index, 7).data(NuevoPrecio).draw();
 
                         // RECALCULAMOS TOTALES
@@ -917,11 +908,11 @@ function CargarProductos(producto = "") {
     console.log(codigo_producto);
 
     $.ajax({
-        url: "ajax/productos.ajax.php",
+        url: "ajax/salesajax.php",
         method: "POST",
         data: {
-            'accion': 7, //BUSCAR PRODUCTOS POR SU CODIGO DE BARRAS
-            'codigo_producto': codigo_producto
+            'action': 7, //BUSCAR PRODUCTOS POR SU CODIGO DE BARRAS
+            'id_menu': codigo_producto
         },
         dataType: 'json',
         success: function(respuesta) {
@@ -936,38 +927,40 @@ function CargarProductos(producto = "") {
 
                 table.row.add({
                     'id': itemProducto,
-                    'codigo_producto': respuesta['codigo_producto'],
-                    'id_categoria': respuesta['id_categoria'],
-                    'nombre_categoria': respuesta['nombre_categoria'],
-                    'descripcion_producto': respuesta['descripcion_producto'],
-                    'cantidad': '<input type="text" style="width:80px;" codigoProducto = "' + respuesta['codigo_producto'] + '" class="form-control text-center iptCantidad p-0 m-0" value="1">',
-                    'precio_venta_producto': respuesta['precio_venta_producto'],
+                    'id_menu': respuesta['id_menu'],
+                    'name_menu': respuesta['name_menu'],
+                    'categoria_name': respuesta['categoria_name'],
+                    'precio': respuesta['precio'],
+                    'detalle': respuesta['detalle'],
+                    // 'descripcion_producto': respuesta['descripcion_producto'],
+                    'cantidad': '<input type="text" style="width:80px;" codigoProducto = "' + respuesta['id_menu'] + '" class="form-control text-center iptCantidad p-0 m-0" value="1">',
+                    // 'precio_venta_producto': respuesta['precio'],
                     'total': respuesta['total'],
                     'acciones': "<center>" +
-                        // "<span class='btnAumentarCantidad text-success px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Aumentar Stock'> " +
-                        // "<i class='fas fa-cart-plus fs-5'></i> " +
-                        // "</span> " +
-                        // "<span class='btnDisminuirCantidad text-warning px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Disminuir Stock'> " +
-                        // "<i class='fas fa-cart-arrow-down fs-5'></i> " +
-                        // "</span> " +
+                    //     // "<span class='btnAumentarCantidad text-success px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Aumentar Stock'> " +
+                    //     // "<i class='fas fa-cart-plus fs-5'></i> " +
+                    //     // "</span> " +
+                    //     // "<span class='btnDisminuirCantidad text-warning px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Disminuir Stock'> " +
+                    //     // "<i class='fas fa-cart-arrow-down fs-5'></i> " +
+                    //     // "</span> " +
                         "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
                         "<i class='fas fa-trash fs-5'> </i> " +
                         "</span>" +
                         "<div class='btn-group'>" +
                         "<button type='button' class=' p-0 btn btn-primary transparentbar dropdown-toggle btn-sm' data-bs-toggle='dropdown' aria-expanded='false'>" +
                         "<i class='fas fa-cog text-primary fs-5'></i> <i class='fas fa-chevron-down text-primary'></i>" +
-                        "</button>" +
+                        "</button>" 
 
-                        "<ul class='dropdown-menu'>" +
-                        "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_venta_producto'] + "' style='cursor:pointer; font-size:14px;'>Normal (" + respuesta['precio_venta_producto'] + ")</a></li>" +
-                        "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_mayor_producto'] + "' style='cursor:pointer; font-size:14px;'>Por Mayor (S./ " + parseFloat(respuesta['precio_mayor_producto']).toFixed(2) + ")</a></li>" +
-                        "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_oferta_producto'] + "' style='cursor:pointer; font-size:14px;'>Oferta (S./ " + parseFloat(respuesta['precio_oferta_producto']).toFixed(2) + ")</a></li>" +
-                        "</ul>" +
-                        "</div>" +
-                        "</center>",
-                    'aplica_peso': respuesta['aplica_peso'],
-                    'precio_mayor_producto': respuesta['precio_mayor_producto'],
-                    'precio_oferta_producto': respuesta['precio_oferta_producto']
+                    //     "<ul class='dropdown-menu'>" +
+                    //     "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_venta_producto'] + "' style='cursor:pointer; font-size:14px;'>Normal (" + respuesta['precio_venta_producto'] + ")</a></li>" +
+                    //     "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_mayor_producto'] + "' style='cursor:pointer; font-size:14px;'>Por Mayor (S./ " + parseFloat(respuesta['precio_mayor_producto']).toFixed(2) + ")</a></li>" +
+                    //     "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_oferta_producto'] + "' style='cursor:pointer; font-size:14px;'>Oferta (S./ " + parseFloat(respuesta['precio_oferta_producto']).toFixed(2) + ")</a></li>" +
+                    //     "</ul>" +
+                    //     "</div>" +
+                    //     "</center>",
+                    // 'aplica_peso': respuesta['aplica_peso'],
+                    // 'precio_mayor_producto': respuesta['precio_mayor_producto'],
+                    // 'precio_oferta_producto': respuesta['precio_oferta_producto']
                 }).draw();
 
                 itemProducto = itemProducto + 1;
@@ -999,6 +992,7 @@ function realizarVenta() {
     var count = 0;
     var totalVenta = $("#totalVenta").html();
     var nro_boleta = $("#iptNroVenta").val();
+    var paymetMethod = $("#selTipoPago").val();
 
     table.rows().eq(0).each(function(index) {
         count = count + 1;
@@ -1014,7 +1008,7 @@ function realizarVenta() {
 
                 return false;
             }
-
+            
             var formData = new FormData();
             var arr = [];
 
@@ -1024,18 +1018,21 @@ function realizarVenta() {
 
                 var data = row.data();
 
-                arr[index] = data['codigo_producto'] + "," + parseFloat($.parseHTML(data['cantidad'])[0]['value']) + "," + data['total'].replace("S./ ", "");
+                arr[index] = data['id_menu'] + "," + parseFloat($.parseHTML(data['cantidad'])[0]['value']) + "," + data['total'].replace("$ ", "");
 
                 formData.append('arr[]', arr[index]);
-
+               
             });
 
-            formData.append('nro_boleta', nro_boleta);
-            formData.append('descripcion_venta', 'Venta realizada con Nro Boleta: ' + nro_boleta);
+            // formData.append('nro_boleta', nro_boleta);
+            // formData.append('descripcion_venta', 'Venta realizada con Nro Boleta: ' + nro_boleta);
             formData.append('total_venta', parseFloat(totalVenta));
-
+            formData.append('payment', paymetMethod);
+            formData.forEach(function(value, key) {
+    console.log(key + ': ' + value);
+});
             $.ajax({
-                url: "ajax/ventas.ajax.php",
+                url: "ajax/salesajax.php",
                 method: "POST",
                 data: formData,
                 cache: false,
@@ -1043,16 +1040,16 @@ function realizarVenta() {
                 processData: false,
                 success: function(respuesta) {
 
-
+                    
                     mensajeToast('success', respuesta);
 
                     table.clear().draw();
 
                     LimpiarInputs();
 
-                    CargarNroBoleta();
+                    //CargarNroBoleta();
 
-                    window.open('http://localhost:8080/vistas/generar_ticket.php?nro_boleta='+nro_boleta);
+                 //  window.open('http://localhost:8080/ajax/salesajax.php?nro_boleta='+nro_boleta);
 
                 }
             });

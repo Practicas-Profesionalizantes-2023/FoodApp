@@ -101,12 +101,12 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                                  <p>Punto de Venta</p>
                              </a>
                          </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/administrar_ventas.php','content-wrapper')">
+                         <!-- <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/sales/adminsales.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Administrar ventas</p>
                              </a>
-                         </li>
+                         </li> -->
                      </ul>
                  </li>
                  <?php } if ($_SESSION["user_role"]==1 ) { ?>
@@ -262,24 +262,24 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
  </aside>
 
  <script>
-    cerrarSesion() {
-                // Realizar una solicitud AJAX al servidor para cerrar la sesión
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST' 'logout.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Redirigir o realizar cualquier otra acción después de cerrar sesión
-                        window.location.href = 'login';
-                    }
-                };
-                xhr.send();
-            }
+    // cerrarSesion() {
+    //             // Realizar una solicitud AJAX al servidor para cerrar la sesión
+    //             var xhr = new XMLHttpRequest();
+    //             xhr.open('POST' 'logout.php', true);
+    //             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    //             xhr.onreadystatechange = function () {
+    //                 if (xhr.readyState === 4 && xhr.status === 200) {
+    //                     // Redirigir o realizar cualquier otra acción después de cerrar sesión
+    //                     window.location.href = 'login';
+    //                 }
+    //             };
+    //             xhr.send();
+    //         }
     
 
 
-     $(".nav-link").on('click', function() {
-         $(".nav-link").removeClass('active');
-         $(this).addClass('active');
-     })
+    //  $(".nav-link").on('click', function() {
+    //      $(".nav-link").removeClass('active');
+    //      $(this).addClass('active');
+    //  })
  </script>
