@@ -101,12 +101,12 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                                  <p>Punto de Venta</p>
                              </a>
                          </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/administrar_ventas.php','content-wrapper')">
+                         <!-- <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/sales/adminsales.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Administrar ventas</p>
                              </a>
-                         </li>
+                         </li> -->
                      </ul>
                  </li>
                  <?php } if ($_SESSION["user_role"]==1 ) { ?>
