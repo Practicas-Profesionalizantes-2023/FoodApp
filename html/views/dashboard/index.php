@@ -152,9 +152,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <div class="content-wrapper">
 
-                <?php include "views/sales/index.php"?>
+                <?php include "views/dashboard/dashboard.php"?>
 
             </div>
+            
         </div>
         <script>
             function CargarContenido(pagina_php, contenedor) {
