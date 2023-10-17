@@ -30,19 +30,37 @@ class Crud_menus extends SessionController {
 
 
     public function createMenu(){
-        if($this->existPOST(['name', 'detail', 'price','category'])){
+        if($this->existPOST(['name', 'detail', 'price','category','productosSeleccionados'])){
+            error_log(print_r($_POST, true));
 
             $name = strtolower($_POST["name"]);
             $detail = strtolower($_POST["detail"]);
             $price = $_POST["price"];
             $category = $_POST["category"];
+            error_log($name);
+            error_log($name);error_log($name);error_log($name);error_log($name);error_log($name);error_log($name);error_log($name);error_log($name);
+            $productosSeleccionados = $_POST["productosSeleccionados"];
 
             $menuModel = new MenuModel();
             if ($menuModel->nameExists(0, $name)) {
                 echo "El nombre de menu ya está en uso. Por favor, elige otro nombre de menu.";
                 error_log("El nombre de menu ya esta en uso");
             } else {
+                
                 if ($menuModel->createMenu($name, $detail, $price, $category)) {
+
+                    $newMenuId = $menuModel->getLastMenuId();
+
+                foreach ($productosSeleccionados as $producto) {
+
+                    $productoId = $producto['id'];
+                    $cantidad = $producto['cantidad'];
+                    $cantidadN= (int)$cantidad;
+                    error_log($cantidadN);
+
+                    $menuModel->insertMenuIngredient($newMenuId, $productoId, $cantidadN);
+                }
+
                     error_log("Menu esta siendo enviado ------------creando-----------.");
                 } else {
                     error_log("Error al intentar enviar el menu.");
