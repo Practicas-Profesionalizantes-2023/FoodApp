@@ -51,6 +51,7 @@ class MenuModel extends Model{
 
 
 
+
     public function getAllCat(){
         $items = [];
         try{
@@ -261,6 +262,32 @@ class MenuModel extends Model{
 
 
 
+
+
+    public function getLastMenuId() {
+        try {
+            $query = $this->query('SELECT MAX(id_menu) as max_id FROM menu');
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+    
+            if ($result && isset($result['max_id'])) {
+                return $result['max_id'];
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            // Manejar errores de base de datos según sea necesario
+            error_log('Error al obtener el último ID de la tabla menu: ' . $e->getMessage());
+            return null;
+        }
+    }
+    
+
+
+
+
+
+
+
     public function createCat($nameCat) {
         try {
             $database = new Database();
@@ -274,7 +301,6 @@ class MenuModel extends Model{
             $query->execute([
                 'nameCat' => $nameCat,
             ]);
-            $lastInsertId = $pdo->lastInsertId();  // Obtén el último ID insertado
 
             // Confirmar la transacción
             $pdo->commit();
@@ -341,7 +367,35 @@ class MenuModel extends Model{
     }
 
 
+    public function insertMenuIngredient($menuId, $productoId, $cantidad) {
 
+        try {
+            $database = new Database();
+            $pdo = $database->connect();
+            $pdo->beginTransaction();
+
+            $query = $pdo->prepare('INSERT INTO menu_ingredientes(id_menu, id_product, cantidad_requerida) 
+            VALUES (:menuId, :productoId, :cantidad)');
+
+
+            $query->execute([
+                'menuId' => $menuId,
+                'productoId' => $productoId,
+                'cantidad' => $cantidad,
+            ]);
+
+            // Confirmar la transacción
+            $pdo->commit();
+
+            return true;
+        } catch (PDOException $e) {
+            // Revertir la transacción en caso de error
+            $pdo->rollBack();
+            error_log('MENUMODEL::createMenuIngredient-> PDOException ' . $e);
+
+            return false;
+        }
+    }
 
 
 
