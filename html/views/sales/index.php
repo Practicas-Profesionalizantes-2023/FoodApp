@@ -79,13 +79,13 @@
                             <table id="lstProductosVenta" class="display nowrap table-striped w-100 shadow ">
                                 <thead class="bg-gray text-left fs-6">
                                     <tr>
-                                        <th>Item</th>
-                                        <th>Menuw</th>
-                                        <!-- <th>Id Categoria</th> -->
+                                         <th>Id</th>
+                                        <th>Menu ID</th> 
                                         <th>Menu</th>
                                         <th>Categoria</th>
-                                        <th>precio</th>
+                                        <th>Detalle</th>
                                         <th>cantidad</th>
+                                        <th>precio</th>
                                         <th>Total</th>
                                         <th class="text-center">Opciones</th>
                                         <!-- <th>Aplica Peso</th>
@@ -314,7 +314,8 @@ $(document).ready(function() {
             //     "data": "precio_oferta_producto"
             // }
         ],
-        columnDefs: [{
+        columnDefs: [
+            {
                 targets: 0,
                 visible: false
             },
@@ -322,12 +323,13 @@ $(document).ready(function() {
                 targets: 1,
                 visible: false
             },
+           
             {
                 targets: 4,
                 visible: false
             },
             {
-                targets: 7,
+                targets: 6,
                 visible: false
             },
             // {
