@@ -60,7 +60,7 @@ class Crud_users extends SessionController {
         'bwStreet','bwStreetTwo', 'altura', 'cel','password', 'email', 'rol'])){
             $id = $_POST["id"];
             error_log($id);
-            $username = strtolower($_POST["nombre"]);
+            $username = $_POST["nombre"];
             error_log($username);
             $dni = $_POST["dni"];
             error_log($dni);
@@ -71,9 +71,9 @@ class Crud_users extends SessionController {
                 error_log("El nombre de usuario ya esta en uso");
             } else {
                 // Resto de tus variables
-                $name = strtolower($_POST["name"]);
+                $name = ucwords(strtolower(($_POST["name"])));
                 error_log($name);
-                $surname = strtolower($_POST["surname"]);
+                $surname = ucwords(strtolower(($_POST["surname"])));
                 error_log($surname);
                 $gender = $_POST["gender"];
                 $province = strtolower($_POST["province"]);
@@ -100,9 +100,9 @@ class Crud_users extends SessionController {
     public function createUser(){
         if($this->existPOST(['username', 'name', 'surname','dni', 'gender', 'province', 'localidad', 'street',
         'bwStreet','bwStreetTwo', 'altura', 'cel', 'email', 'rol','password'])){
-            $username = strtolower($_POST["username"]);
-            $name = strtolower($_POST["name"]);
-            $surname = strtolower($_POST["surname"]);
+            $username = $_POST["username"];
+            $name = ucwords(strtolower(($_POST["name"])));
+            $surname = ucwords(strtolower(($_POST["surname"])));
             $dni = $_POST["dni"];
             $gender = $_POST["gender"];
             $province = strtolower($_POST["province"]);
