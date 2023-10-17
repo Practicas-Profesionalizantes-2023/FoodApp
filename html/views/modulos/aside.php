@@ -49,7 +49,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
 
                  <li class="nav-item">
                      <a style="cursor: pointer;" class="nav-link active" onclick="CargarContenido('views/dashboard/dashboard.php','content-wrapper')">
-                         <i class="nav-icon fas fa-th"></i>
+                         <i class="nav-icon fas fa-th text-success"></i>
                          <p>
                              Tablero Principal
                          </p>
@@ -63,7 +63,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
                          <p>
-                             Productos
+                         Productos
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
@@ -91,7 +91,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  <?php }  if ($_SESSION["user_role"]==2 or $_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-store-alt"></i>
+                     <i class="nav-icon fas fa-store-alt text-warning"></i> 
                          <p>Ventas<i class="right fas fa-angle-left"></i></p>
                      </a>
                      <ul class="nav nav-treeview">
@@ -101,32 +101,34 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                                  <p>Punto de Venta</p>
                              </a>
                          </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/administrar_ventas.php','content-wrapper')">
+                         <!-- <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/sales/adminsales.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Administrar ventas</p>
                              </a>
-                         </li>
+                         </li> -->
                      </ul>
                  </li>
                  <?php } if ($_SESSION["user_role"]==1 ) { ?>
-                 <li class="nav-item">
+                 <!-- <li class="nav-item">
                      <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/compras.php','content-wrapper')">
                          <i class="nav-icon fas fa-dolly text-ligth"></i>
+                         
                          <p>
                              Compras
                          </p>
                      </a>
-                 </li>
+                 </li> -->
                  <?php }  if ($_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-store-alt"></i>
+                     
+                     <i class="nav-icon fas fa-utensils text-warning"></i>
                          <p>Menu<i class="right fas fa-angle-left"></i></p>
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/menu/crud_menus.php','content-wrapper')">
+                             <a href="#" class="nav-link" style="cursor: pointer;" onclick="CargarContenido('views/menu/crud_menus.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Administrar Menu</p>
                              </a>
@@ -142,7 +144,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  <?php }  if ($_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-store-alt"></i>
+                     <i class="nav-icon fas fa-list text-warning"></i>
                          <p>Categorias<i class="right fas fa-angle-left"></i></p>
                      </a>
                      <ul class="nav nav-treeview">
@@ -163,14 +165,14 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                   <?php }  if ($_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-store-alt"></i>
+                     <i class="nav-icon fas fa-users text-warning"></i> 
                          <p>Empleados<i class="right fas fa-angle-left"></i></p>
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
                              <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/users/crud_users.php','content-wrapper')">
                                  <i class="far fa-circle nav-icon"></i>
-                                 <p>Administrar Empleados</p>
+                                 <p>Administrar</p>
                              </a>
                          </li>
                          <li class="nav-item">
@@ -181,7 +183,49 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                          </li>
                      </ul>
                  </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-hamburger text-warning"></i>
+                         <p>Productos<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/products/crud_products.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar Productos</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/products/create_products.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar Productos</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <?php }  if ($_SESSION["user_role"]==1) { ?>
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-truck text-warning"></i>
+                         <p>Proveedores<i class="right fas fa-angle-left"></i></p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/providers/crud_providers.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Administrar</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/providers/create_providers.php','content-wrapper')">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Agregar</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <!-- <li class="nav-item">
                      <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/reportes.php','content-wrapper')">
                          <i class="nav-icon fas fa-chart-line text-ligth"></i>
                          <p>
@@ -196,10 +240,10 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                              Configuración
                          </p>
                      </a>
-                 </li>
+                 </li> -->
                  <li class="nav-item">
-                     <a style="cursor: pointer;" class="nav-link" href="http://localhost:8081?cerrar_sesion=1">
-                         <i class="nav-icon fas fa-sign-out-alt"></i>
+                     <a style="cursor: pointer;" class="nav-link sessiondestroid" href="#">
+                         <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
                          <p>
                              Cerrar Sesion
                          </p>
@@ -209,34 +253,44 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
              </ul>
          </nav>
          <!-- /.sidebar-menu -->
+         
      </div>
-     <!-- /.sidebar -->
-     <?php    function CloseSession() {
-        session_unset();
-        session_destroy();
-    }
-    ?>
+   
  </aside>
 
  <script>
-    cerrarSesion() {
-                // Realizar una solicitud AJAX al servidor para cerrar la sesión
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST' 'logout.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Redirigir o realizar cualquier otra acción después de cerrar sesión
-                        window.location.href = 'login';
-                    }
-                };
-                xhr.send();
-            }
-    
-
-
      $(".nav-link").on('click', function() {
          $(".nav-link").removeClass('active');
          $(this).addClass('active');
      })
  </script>
+ <script>
+        $(document).ready(function() {
+            // Cuando se hace clic en el enlace "Cerrar Sesión"
+            $("a.sessiondestroid").click(function(event) {
+                event.preventDefault();
+
+                // Muestra una ventana de confirmación con SweetAlert2
+                Swal.fire({
+                    title: '¿Cerrar Sesión?',
+                    text: '¿Estás seguro de que deseas cerrar sesión?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Realizar una solicitud AJAX al script de cierre de sesión
+                        $.ajax({
+                            type: "POST",
+                            url: "ajax/sessiondestroid.php", // Ruta al script de cierre de sesión
+                            success: function(response) {
+                                // La sesión se ha cerrado con éxito, puedes redirigir a una página de inicio de sesión u otra acción
+                                window.location.href = "dashboard";
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>

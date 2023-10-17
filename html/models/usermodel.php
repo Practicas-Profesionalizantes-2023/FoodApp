@@ -5,7 +5,8 @@ require_once '/var/www/html/libs/imodel.php';
 require_once '/var/www/html/libs/model.php';
 
 
-class UserModel extends Model{
+class UserModel extends Model {
+
 
     private $id;
     private $username;
