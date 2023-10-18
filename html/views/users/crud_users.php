@@ -33,9 +33,7 @@ usort($usuarios, "cmp");
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Rol</th>
-                    <th>Estado</th>
-                    <th>Condicion</th>
-                    <th>Eliminar Usuario</th>
+                    <th>Desabilitar Usuario</th>
                     <th>Editar Usuario</th>
                 </tr>
             </thead>
@@ -47,19 +45,17 @@ usort($usuarios, "cmp");
                     <td><?php echo $usuario->getName(); ?></td>
                     <td><?php echo $usuario->getSurname(); ?></td>
                     <td><?php echo $usuario->getRoleName(); ?></td>
-                    <td><?php echo $usuario->getState(); ?></td>
-                    <td><?php if(($usuario->getDeleted() < 1)){echo 'DESABILITADO';} else{echo 'HABILITADO';}?></td>
                     <td>
                     <?php
                     if ($usuario->getDeleted() > 0) {
                         echo '<form id="deleteForm' . $usuario->getId() . '" action="' . constant('URL') . 'crud_users/deleteUser" method="POST">';
                         echo '<input type="hidden" name="id" value="' . $usuario->getId() . '">';
-                        echo '<button id="eliminarBtn" class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete(\'' . $usuario->getId() . '\')">Eliminar</button>';
+                        echo '<button id="eliminarBtn" class="btn btn-danger" type="button" name="eliminar" onclick="confirmDelete(\'' . $usuario->getId() . '\')">Desabilitar</button>';
                         echo '</form>';
                     } else {
                         echo '<form id="enabledForm' . $usuario->getId() . '" action="' . constant('URL') . 'crud_users/enabledUser" method="POST">';
                         echo '<input type="hidden" name="id" value="' . $usuario->getId() . '">';
-                        echo '<button id="enabledBtn" class="btn btn-success" type="button" name="habilitar" onclick="confirmEnabled(\'' . $usuario->getId() . '\')">Habilitar</button>';
+                        echo '<button id="enabledBtn" class="btn btn-success" type="button" name="habilitar" onclick="confirmEnabled(\'' . $usuario->getId() . '\')">&nbsp;&nbsp;Habilitar&nbsp;&nbsp;</button>';
                         echo '</form>';                    }
                     ?>
                     </td>
