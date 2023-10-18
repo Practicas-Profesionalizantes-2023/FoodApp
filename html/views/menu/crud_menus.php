@@ -81,7 +81,7 @@ function confirmDelete(menuId) {
     }).then((result) => {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/crud_menus/deleteMenu", true);
+            xhr.open("POST", "<?php echo constant('URL') ?>crud_menus/deleteMenu", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {

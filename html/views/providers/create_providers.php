@@ -27,7 +27,7 @@ foreach ($providers as $provider) {
     <body>
         <div class="container">
             <h2 class="text-center mb-4">Registro de Proveedor</h2>
-            <form method="post" action="http://localhost:8080/crud_providers/createProvider" id="miFormulario">
+            <form method="post" action="<?php echo constant('URL') ?>crud_providers/createProvider" id="miFormulario">
                 <div class="mb-3">
                     <label for="providerName" class="form-label">Razón social:</label>
                     <input type="text" maxlength="20" class="form-control" name="providerName" id="providerName" required>
@@ -83,7 +83,7 @@ foreach ($providers as $provider) {
 
             const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'http://localhost:8080/crud_providers/createProvider', true);
+            xhr.open('POST', '<?php echo constant('URL') ?>crud_providers/createProvider', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {

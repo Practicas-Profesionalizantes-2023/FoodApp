@@ -75,7 +75,7 @@ function confirmDelete(catId) {
     }).then((result) => {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/crud_menus/deleteCat", true);
+            xhr.open("POST", "crud_menus/deleteCat", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {

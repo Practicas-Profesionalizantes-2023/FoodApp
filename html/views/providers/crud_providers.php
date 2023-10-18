@@ -83,7 +83,7 @@ function confirmDelete(providerId) {
     }).then((result) => {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/crud_providers/deleteProvider", true);
+            xhr.open("POST", "<?php echo constant('URL') ?>crud_providers/deleteProvider", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {

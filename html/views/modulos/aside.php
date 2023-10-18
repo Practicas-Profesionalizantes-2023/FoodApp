@@ -2,17 +2,6 @@
 
 session_start();
 
-
-if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
-
-    session_destroy();
-
-    echo '
-            <script>
-                window.location = "http://localhost:8081/";
-            </script>        
-        ';
-}
 ?>
 
 <!-- Main Sidebar Container -->
@@ -59,35 +48,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                  
                                      
                  if ($_SESSION["user_role"]==1) { ?>
-                 <!-- <li class="nav-item">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                         <p>
-                         Productos
-                             <i class="right fas fa-angle-left"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/productos.php','content-wrapper')">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Inventario</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/carga_masiva_productos.php','content-wrapper')">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Carga Masiva</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/categorias.php','content-wrapper')">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Categorías</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li> -->
+                
                  <?php }  if ($_SESSION["user_role"]==2 or $_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
@@ -101,24 +62,10 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                                  <p>Punto de Venta</p>
                              </a>
                          </li>
-                         <!-- <li class="nav-item">
-                             <a href="#" class="nav-link" style="cursor:pointer;" onclick="CargarContenido('views/sales/adminsales.php','content-wrapper')">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Administrar ventas</p>
-                             </a>
-                         </li> -->
+                         
                      </ul>
                  </li>
-                 <?php } if ($_SESSION["user_role"]==1 ) { ?>
-                 <!-- <li class="nav-item">
-                     <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/compras.php','content-wrapper')">
-                         <i class="nav-icon fas fa-dolly text-ligth"></i>
-                         
-                         <p>
-                             Compras
-                         </p>
-                     </a>
-                 </li> -->
+                 
                  <?php }  if ($_SESSION["user_role"]==1) { ?>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
@@ -225,22 +172,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
                          </li>
                      </ul>
                  </li>
-                 <!-- <li class="nav-item">
-                     <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/reportes.php','content-wrapper')">
-                         <i class="nav-icon fas fa-chart-line text-ligth"></i>
-                         <p>
-                             Reportes
-                         </p>
-                     </a>
-                 </li>
-                 <li class="nav-item">
-                     <a style="cursor: pointer;" class="nav-link" onclick="CargarContenido('views/configuracion.php','content-wrapper')">
-                         <i class="nav-icon fas fa-cogs text-ligth"></i>
-                         <p>
-                             Configuración
-                         </p>
-                     </a>
-                 </li> -->
+               
                  <li class="nav-item">
                      <a style="cursor: pointer;" class="nav-link sessiondestroid" href="#">
                          <i class="nav-icon fas fa-sign-out-alt text-danger"></i>

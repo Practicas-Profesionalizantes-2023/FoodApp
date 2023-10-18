@@ -92,7 +92,7 @@ function confirmDelete(productId) {
     }).then((result) => {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/crud_products/deleteProduct", true);
+            xhr.open("POST", "<?php echo constant('URL') ?>crud_products/deleteProduct", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {

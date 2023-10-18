@@ -89,7 +89,7 @@ function confirmDelete(userId) {
     }).then((result) => {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/crud_users/deleteUser", true);
+            xhr.open("POST", "<?php echo constant('URL') ?>crud_users/deleteUser", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {
@@ -124,7 +124,7 @@ function confirmEnabled(userId) {
     }).then((result) => {
         if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/crud_users/enabledUser", true);
+            xhr.open("POST", "<?php echo constant('URL') ?>crud_users/enabledUser", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onload = function () {
                 if (xhr.status === 200) {

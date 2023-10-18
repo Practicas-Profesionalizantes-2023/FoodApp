@@ -37,7 +37,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                 <!-- Contenido del formulario -->
                 <div class="modal-body">
-                <form method='POST' action='http://localhost:8080/crud_providers/editProviders'>
+                <form method='POST' action='<?php echo constant('URL') ?>crud_providers/editProviders'>
                             <input type='hidden' name='id' value='<?php echo $userId; ?>'>
                         <div class="mb-3">
                             <label for="providerName" class="form-label">Razón Social:</label>

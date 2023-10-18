@@ -24,7 +24,7 @@ $providers = $providerModel->getAll();
     <body>
         <div class="container">
             <h2 class="text-center mb-4">Adición de productos</h2>
-            <form method="post" action="http://localhost:8080/crud_products/createProduct" id="miFormulario">
+            <form method="post" action="<?php echo constant('URL') ?>crud_products/createProduct" id="miFormulario">
                 <div class="mb-3">
                     <label for="productname" class="form-label">Nombre del producto:</label>
                     <input type="text" class="form-control" name="productname" id="productname" maxlength="50" required>
@@ -85,7 +85,7 @@ $providers = $providerModel->getAll();
 
             const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'http://localhost:8080/crud_products/createProduct', true);
+            xhr.open('POST', '<?php echo constant('URL') ?>crud_products/createProduct', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {

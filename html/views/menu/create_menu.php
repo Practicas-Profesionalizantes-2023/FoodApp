@@ -149,7 +149,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         });
 
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8080/crud_menus/createMenu', true);
+        xhr.open('POST', '<?php echo constant('URL') ?>crud_menus/createMenu', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {

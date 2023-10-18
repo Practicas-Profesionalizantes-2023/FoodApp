@@ -88,9 +88,7 @@
                                         <th>precio</th>
                                         <th>Total</th>
                                         <th class="text-center">Opciones</th>
-                                        <!-- <th>Aplica Peso</th>
-                                        <th>Precio Por Mayor</th>
-                                        <th>Precio Oferta</th> -->
+                                     
                                     </tr>
                                 </thead>
                                 <tbody class="small text-left fs-6">
@@ -109,9 +107,7 @@
 
             <div class="card card-gray shadow">
 
-                <!-- <h5 class="card-header py-1 bg-primary text-white text-center">
-                    Total Venta: S./ <span id="totalVentaRegistrar">0.00</span>
-                </h5> -->
+              
 
                 <div class="card-body p-2">
 
@@ -137,30 +133,6 @@
                         </span>
 
                     </div>
-
-                    <!-- SERIE Y NRO DE BOLETA -->
-                    <!-- <div class="form-group">
-
-                        <div class="row">
-
-                            <div class="col-md-4">
-
-                                <label for="iptNroSerie" class="p-0 m-0">Serie</label>
-
-                                <input type="text" min="0" name="iptEfectivo" id="iptNroSerie" class="form-control form-control-sm" placeholder="nro Serie" disabled>
-                            </div>
-
-                            <div class="col-md-8">
-
-                                <label for="iptNroVenta" class="p-0 m-0">Correlativo</label>
-
-                                <input type="text" min="0" name="iptEfectivo" id="iptNroVenta" class="form-control form-control-sm" placeholder="Nro Venta" disabled>
-
-                            </div>
-
-                        </div>
-
-                    </div> -->
 
                     <!-- INPUT DE EFECTIVO ENTREGADO -->
                     <div class="form-group">
@@ -192,34 +164,6 @@
 
                     <!-- MOSTRAR EL SUBTOTAL, IGV Y TOTAL DE LA VENTA -->
                     <div class="row fw-bold">
-
-                        <!-- <div class="col-md-7">
-                            <span>OPE. GRAVADAS</span>
-                        </div>
-                        <div class="col-md-5 text-right">
-                            $ <span class="" id="">0.00</span>
-                        </div>
-
-                        <div class="col-md-7">
-                            <span>OPE. INAFECTAS</span>
-                        </div>
-                        <div class="col-md-5 text-right">
-                            $ <span class="" id="">0.00</span>
-                        </div>
-
-                        <div class="col-md-7">
-                            <span>OPE. EXONERADAS</span>
-                        </div>
-                        <div class="col-md-5 text-right">
-                            $ <span class="" id="">0.00</span>
-                        </div>
-
-                        <div class="col-md-7">
-                            <span>IGV (18%)</span>
-                        </div>
-                        <div class="col-md-5 text-right">
-                            $ <span class="" id="boleta_igv">0.00</span>
-                        </div> -->
 
                         <div class="col-md-7">
                             <span>SUBTOTAL</span>
@@ -304,15 +248,7 @@ $(document).ready(function() {
             {
                 "data": "acciones"
             },
-            // {
-            //     "data": "aplica_peso"
-            // },
-            // {
-            //     "data": "precio_mayor_producto"
-            // },
-            // {
-            //     "data": "precio_oferta_producto"
-            // }
+            
         ],
         columnDefs: [
             {
@@ -332,18 +268,7 @@ $(document).ready(function() {
                 targets: 6,
                 visible: false
             },
-            // {
-            //     targets: 9,
-            //     visible: false
-            // },
-            // {
-            //     targets: 10,
-            //     visible: false
-            // },
-            // {
-            //     targets: 11,
-            //     visible: false
-            // }
+          
         ],
         "order": [
             [0, 'desc']
@@ -840,9 +765,7 @@ function CargarProductos(producto = "") {
     }
 
     codigo_producto = $.trim(codigo_producto.split('/')[0]);
-    // console.log("🚀 ~ file: ventas.php:844 ~ CargarProductos ~ codigo_producto", codigo_producto)
-
-    // return;
+  
 
     var producto_repetido = 0;
 
@@ -901,7 +824,7 @@ function CargarProductos(producto = "") {
         }
     });
 
-    // return;
+    
 
     if (producto_repetido == 1) {
         return;
@@ -934,35 +857,15 @@ function CargarProductos(producto = "") {
                     'categoria_name': respuesta['categoria_name'],
                     'precio': respuesta['precio'],
                     'detalle': respuesta['detalle'],
-                    // 'descripcion_producto': respuesta['descripcion_producto'],
+                  
                     'cantidad': '<input type="text" style="width:80px;" codigoProducto = "' + respuesta['id_menu'] + '" class="form-control text-center iptCantidad p-0 m-0" value="1">',
-                    // 'precio_venta_producto': respuesta['precio'],
+                
                     'total': respuesta['total'],
                     'acciones': "<center>" +
-                    //     // "<span class='btnAumentarCantidad text-success px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Aumentar Stock'> " +
-                    //     // "<i class='fas fa-cart-plus fs-5'></i> " +
-                    //     // "</span> " +
-                    //     // "<span class='btnDisminuirCantidad text-warning px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Disminuir Stock'> " +
-                    //     // "<i class='fas fa-cart-arrow-down fs-5'></i> " +
-                    //     // "</span> " +
                         "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
                         "<i class='fas fa-trash fs-5'> </i> " +
-                        "</span>" +
-                        "<div class='btn-group'>" +
-                        "<button type='button' class=' p-0 btn btn-primary transparentbar dropdown-toggle btn-sm' data-bs-toggle='dropdown' aria-expanded='false'>" +
-                        "<i class='fas fa-cog text-primary fs-5'></i> <i class='fas fa-chevron-down text-primary'></i>" +
-                        "</button>" 
-
-                    //     "<ul class='dropdown-menu'>" +
-                    //     "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_venta_producto'] + "' style='cursor:pointer; font-size:14px;'>Normal (" + respuesta['precio_venta_producto'] + ")</a></li>" +
-                    //     "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_mayor_producto'] + "' style='cursor:pointer; font-size:14px;'>Por Mayor (S./ " + parseFloat(respuesta['precio_mayor_producto']).toFixed(2) + ")</a></li>" +
-                    //     "<li><a class='dropdown-item' codigo = '" + respuesta['codigo_producto'] + "' precio=' " + respuesta['precio_oferta_producto'] + "' style='cursor:pointer; font-size:14px;'>Oferta (S./ " + parseFloat(respuesta['precio_oferta_producto']).toFixed(2) + ")</a></li>" +
-                    //     "</ul>" +
-                    //     "</div>" +
-                    //     "</center>",
-                    // 'aplica_peso': respuesta['aplica_peso'],
-                    // 'precio_mayor_producto': respuesta['precio_mayor_producto'],
-                    // 'precio_oferta_producto': respuesta['precio_oferta_producto']
+                        "</span>" 
+                        
                 }).draw();
 
                 itemProducto = itemProducto + 1;

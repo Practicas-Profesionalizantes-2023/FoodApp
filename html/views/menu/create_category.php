@@ -65,7 +65,7 @@ $menus = $menuModel->getAll();
 
             const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'http://localhost:8080/crud_menus/createCat', true);
+            xhr.open('POST', 'crud_menus/createCat', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {

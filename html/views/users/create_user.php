@@ -143,7 +143,7 @@ $rols = $userModel->getAllRole();
 
             const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'http://localhost:8080/crud_users/createUser', true);
+            xhr.open('POST', 'crud_users/createUser', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {

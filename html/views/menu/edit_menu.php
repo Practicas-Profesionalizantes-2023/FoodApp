@@ -31,7 +31,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                 <!-- Contenido del formulario -->
                 <div class="modal-body">
-                    <form id="miFormulario" method='post' action='http://localhost:8080/crud_menus/editMenu'>
+                    <form id="miFormulario" method='post' action='<?php echo constant('URL') ?>crud_menus/editMenu'>
                         <input type='hidden' name='id' value='<?php echo $_GET['id']; ?>'>
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre de Menu:</label>

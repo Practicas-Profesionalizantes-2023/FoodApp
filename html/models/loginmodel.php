@@ -24,9 +24,16 @@ class LoginModel extends Model{
 
                 if(password_verify($password, $user->getPassword())){
 
-                    if( $user->getState() != 0 and $user->getDeleted() != 0) {
+                    if( $user->getState() != 0) {
+
+                        if($user->getDeleted() != 0){
+                            
                         error_log('LoginModel::login-> contraseña correcta');
                         return $user;
+                        }else{
+                            return NULL;
+                        }
+
                     }
                     error_log('LoginModel::login-> contraseña correcta');
                         return -1;
