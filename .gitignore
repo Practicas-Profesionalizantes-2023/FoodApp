@@ -1,0 +1,6 @@
+*.env
+/config
+*.json
+*.log
+/mysql
+*.yml
